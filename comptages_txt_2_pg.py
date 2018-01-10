@@ -19,31 +19,6 @@ f_to_import = './fichiers_a_importer/test'
 station = ""
 
 
-def lectureDonnees():
-
-  f = open(f_to_import,'r')
-
-  f_content = f.readlines()
-
-  # on pointe les lignes qui ne sont pas des données
-  metadata = [0, 1, 170, 171]
-
-  i = 0
-
-  # on boucle sur les lignes
-  for line in f_content:
-
-    if not i in metadata:
-
-      print line[:-1]
-
-
-    i = i + 1
-
-  # fermeture du fichier
-  f.close()
-
-
 def lectureMetadonnees():
 
   # on lit la première ligne pour récupéer les métadonnées
@@ -63,7 +38,31 @@ def lectureMetadonnees():
   print ""
 
 
+def lectureDonnees():
 
+  f = open(f_to_import,'r')
+
+  f_content = f.readlines()
+
+  # on pointe les lignes qui ne sont pas des données
+  metadata = [0, 1, 170, 171]
+
+  i = 0
+
+  # on boucle sur les lignes
+  for line in f_content:
+
+    if not i in metadata:
+      # print line[:-1]
+
+      # on prend toute la ligne
+      a = line[:-1]
+
+
+    i = i + 1
+
+  # fermeture du fichier
+  f.close()
 
 
 
