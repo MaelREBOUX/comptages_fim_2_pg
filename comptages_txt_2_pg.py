@@ -56,7 +56,12 @@ def lectureDonnees():
       # print line[:-1]
 
       # on prend toute la ligne
-      a = line[:-1]
+      total = lectureLigne(line[:-1])
+
+      print ">>> " + str(total)
+
+      if i == 2:
+        break
 
 
     i = i + 1
@@ -64,6 +69,34 @@ def lectureDonnees():
   # fermeture du fichier
   f.close()
 
+
+
+def lectureLigne(ligne):
+
+  i = 0
+  total = 0
+
+  # on splite sur le .
+  hits = ligne.split('.')
+
+  for hit in hits:
+    # on dépadde les zéros  0003 -> 3
+    value = hit.lstrip('0')
+
+    # pour garder une valeur à 0
+    if value == '': value = '0'
+    #print str(i) + ' : ' + value
+
+    # on additionne
+    total = total + int(value)
+
+    i = i + 1
+  # fin de la boucle
+
+  print ' total ligne = ' + str(total)
+
+  # on retourne le total
+  return total
 
 
 def main():
