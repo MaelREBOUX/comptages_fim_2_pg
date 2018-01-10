@@ -25,17 +25,20 @@ def lectureDonnees():
 
   f_content = f.readlines()
 
-  # on supprime les lignes qui ne sont pas des données
-  # Tout véhicules
-  f_content.pop(0)
-  f_content.pop(1)
-  # Poids-lourds
-  f_content(171)
-  f_content(172)
+  # on pointe les lignes qui ne sont pas des données
+  metadata = [0, 1, 170, 171]
+
+  i = 0
 
   # on boucle sur les lignes
   for line in f_content:
-    print line[:-1]
+
+    if not i in metadata:
+
+      print line[:-1]
+
+
+    i = i + 1
 
   # fermeture du fichier
   f.close()
