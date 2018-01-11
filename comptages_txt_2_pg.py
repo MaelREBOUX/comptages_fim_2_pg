@@ -62,7 +62,10 @@ def lectureDonnees():
       # pour les données PL on envoie le numéro de la ligne en cours
       total_PL = lectureLignePL(i)
 
-      print "   ligne " + str(i_intervalle) + ' (' + str(i) + ') :  TV = '  + str(total_TV) + ' PL = ' + str(total_PL)
+      # on fait un calcul simple pour retrouver le nb de véhicules légers
+      total_VL = total_TV - total_PL
+
+      print "   ligne " + str(i_intervalle) + ' (' + str(i) + ') :  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )'
 
       # on peut incrémenter le compteur des valeurs de trafic
       i_intervalle = i_intervalle + 1
