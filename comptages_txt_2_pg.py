@@ -56,15 +56,19 @@ def lectureDonnees():
     if not i in metadata:
       # print line[:-1]
 
-      # on prend toute la ligne
-      total = lectureLigneTV(line[:-1])
+      # on caclul le total TV pour la ligne en cours
+      total_TV = lectureLigneTV(line[:-1])
 
-      print "   ligne " + str(i_intervalle) + ' TV = '  + str(total)
+      # pour les données PL on envoie le numéro de la ligne en cours
+      total_PL = lectureLignePL(i)
+
+      print "   ligne " + str(i_intervalle) + ' (' + str(i) + ') :  TV = '  + str(total_TV) + ' PL = ' + str(total_PL)
 
       # on peut incrémenter le compteur des valeurs de trafic
       i_intervalle = i_intervalle + 1
 
-      if i == 4:
+      # for debug : stop line
+      if i == 23:
         break
 
 
@@ -80,7 +84,7 @@ def lectureLigneTV(ligne):
   #print "   Donnees Tout Vehicule"
 
   i = 0
-  total = 0
+  totalTV = 0
 
   # on splite sur le .
   hits = ligne.split('.')
@@ -94,7 +98,7 @@ def lectureLigneTV(ligne):
     #print str(i) + ' : ' + value
 
     # on additionne
-    total = total + int(value)
+    totalTV = totalTV + int(value)
 
     i = i + 1
   # fin de la boucle
@@ -102,7 +106,41 @@ def lectureLigneTV(ligne):
   #print ' total ligne = ' + str(total)
 
   # on retourne le total
-  return total
+  return totalTV
+
+
+
+def lectureLignePL(num_ligneTV):
+
+  #print "   Donnees Tout Vehicule"
+  #print "num ligne PL = " + str(num_ligneTV)
+
+  i = 0
+  totalPL = 0
+
+  # on va à la ligne TV + le décalage dans le fichier
+  ligne = linecache.getline(f_to_import, num_ligneTV + 171)
+
+  # on splite sur le .
+  hits = ligne[:-1].split('.')
+
+  for hit in hits:
+    # on dépadde les zéros  0003 -> 3
+    value = hit.lstrip('0')
+
+    # pour garder une valeur à 0
+    if value == '': value = '0'
+    #print str(i) + ' : ' + value
+
+    # on additionne
+    totalPL = totalPL + int(value)
+
+    i = i + 1
+  # fin de la boucle
+
+
+  return totalPL
+
 
 
 def main():
