@@ -84,7 +84,7 @@ def lectureDonnees():
       # on va utiliser le modulo pour ça
       if i_data > 0 :  # on ne regarde la toute première donnée
         modulo = (i_data) % 24
-        print '## ' + str(modulo)
+        #print '## ' + str(modulo)
 
         # si modulo = 0 => on est le début d'un nouveau jour
         if modulo == 0 :
@@ -98,7 +98,7 @@ def lectureDonnees():
 
 
       # le timestamp  '2016-10-11 09:00:00'
-      date_tmst = calculTimeStamp(h_courante)
+      date_tmst = calculTimeStamp(j_courant, h_courante)
 
       # on calcule l'intervalle de mesure
       intervalle = calculIntervalle(i_data)
@@ -119,7 +119,7 @@ def lectureDonnees():
 
 
       # for debug : stop line
-      if i == 28:
+      if i == 80:
         break
 
 
@@ -212,18 +212,25 @@ def calculIntervalle(h_deb):
 
 
 
-def calculTimeStamp(heure):
+def calculTimeStamp(jour, heure):
 
   # format = 2016-10-11 09:00:00
   # l'heure = fin de l'intervalle de mesure + formatage '9' -> '09:00:00'
 
   # gestion du changement de jour
-  if heure == 23 : h_fin = 0
+  # jour
+  if jour == 0:
+    date = campagne_date_deb
+  else:
+    date = campagne_date_deb[0:8] + str(int(campagne_date_deb[-2:]) + jour)
+
+  # heure
+  if heure == 23: h_fin = 0
   else: h_fin = heure + 1
 
   h_fin = str(h_fin).zfill(2) + ':00:00'
 
-  TimeStamp = campagne_date_deb + ' ' + h_fin
+  TimeStamp = str(date) + ' ' + h_fin
 
   return TimeStamp
 
