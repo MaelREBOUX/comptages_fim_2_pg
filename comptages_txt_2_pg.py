@@ -98,7 +98,7 @@ def lectureDonnees():
 
 
       # le timestamp  '2016-10-11 09:00:00'
-      date_tmst = calculTimeStamp(i_data)
+      date_tmst = calculTimeStamp(h_courante)
 
       # on calcule l'intervalle de mesure
       intervalle = calculIntervalle(i_data)
@@ -212,12 +212,16 @@ def calculIntervalle(h_deb):
 
 
 
-def calculTimeStamp(h_deb):
+def calculTimeStamp(heure):
 
   # format = 2016-10-11 09:00:00
   # l'heure = fin de l'intervalle de mesure + formatage '9' -> '09:00:00'
-  h_fin = str(h_deb + 1)
-  h_fin = h_fin.zfill(2) + ':00:00'
+
+  # gestion du changement de jour
+  if heure == 23 : h_fin = 0
+  else: h_fin = heure + 1
+
+  h_fin = str(h_fin).zfill(2) + ':00:00'
 
   TimeStamp = campagne_date_deb + ' ' + h_fin
 
