@@ -101,7 +101,7 @@ def lectureDonnees():
       date_tmst = calculTimeStamp(j_courant, h_courante)
 
       # on calcule l'intervalle de mesure
-      intervalle = calculIntervalle(i_data)
+      intervalle = calculIntervalle(h_courante)
 
       # on caclul le total TV pour la ligne en cours
       total_TV = lectureLigneTV(line[:-1])
@@ -200,6 +200,9 @@ def calculIntervalle(h_deb):
   # on calcule la chaîne qui représente l'intervalle ex :  08H00-09H00
   # on commence par calculer l'heure de fin : facile
   h_fin = h_deb + 1
+
+  # sauf si on change de jour
+  if h_fin == 24: h_fin = 0
 
   # on formate les 2 heures sur 2 digit
   s_h_deb = str(h_deb).zfill(2)
