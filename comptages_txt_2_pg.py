@@ -79,6 +79,24 @@ def lectureDonnees():
     if not i in metadata:
       # print line[:-1]
 
+
+      # il faut gérer le changement de jour calendaire
+      # on va utiliser le modulo pour ça
+      if i_data > 0 :  # on ne regarde la toute première donnée
+        modulo = (i_data) % 24
+        print '## ' + str(modulo)
+
+        # si modulo = 0 => on est le début d'un nouveau jour
+        if modulo == 0 :
+          # on incrémente un jour
+          j_courant = j_courant + 1
+          # et on remet à zéro le compteur des heures
+          h_courante = 0
+        else:
+          # on incrémente le compteur des heures de la journée
+          h_courante = h_courante + 1
+
+
       # le timestamp  '2016-10-11 09:00:00'
       date_tmst = calculTimeStamp(i_data)
 
@@ -98,8 +116,10 @@ def lectureDonnees():
       # on peut incrémenter le compteur des valeurs de trafic
       i_data = i_data + 1
 
+
+
       # for debug : stop line
-      if i == 80:
+      if i == 28:
         break
 
 
