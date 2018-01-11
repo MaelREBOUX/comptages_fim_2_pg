@@ -48,6 +48,7 @@ def lectureDonnees():
   metadata = [0, 1, 170, 171]
 
   i = 0
+  i_intervalle = 0
 
   # on boucle sur les lignes
   for line in f_content:
@@ -56,11 +57,14 @@ def lectureDonnees():
       # print line[:-1]
 
       # on prend toute la ligne
-      total = lectureLigne(line[:-1])
+      total = lectureLigneTV(line[:-1])
 
-      print ">>> " + str(total)
+      print "   ligne " + str(i_intervalle) + ' TV = '  + str(total)
 
-      if i == 2:
+      # on peut incrémenter le compteur des valeurs de trafic
+      i_intervalle = i_intervalle + 1
+
+      if i == 4:
         break
 
 
@@ -71,7 +75,9 @@ def lectureDonnees():
 
 
 
-def lectureLigne(ligne):
+def lectureLigneTV(ligne):
+
+  #print "   Donnees Tout Vehicule"
 
   i = 0
   total = 0
@@ -93,7 +99,7 @@ def lectureLigne(ligne):
     i = i + 1
   # fin de la boucle
 
-  print ' total ligne = ' + str(total)
+  #print ' total ligne = ' + str(total)
 
   # on retourne le total
   return total
