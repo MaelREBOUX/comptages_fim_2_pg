@@ -48,7 +48,7 @@ def lectureDonnees():
   metadata = [0, 1, 170, 171]
 
   i = 0
-  i_intervalle = 0
+  i_data = 0
 
   # on boucle sur les lignes
   for line in f_content:
@@ -57,7 +57,7 @@ def lectureDonnees():
       # print line[:-1]
 
       # on calcule l'intervalle de mesure
-      intervalle = calculIntervalle(i_intervalle)
+      intervalle = calculIntervalle(i_data)
 
       # on caclul le total TV pour la ligne en cours
       total_TV = lectureLigneTV(line[:-1])
@@ -68,10 +68,10 @@ def lectureDonnees():
       # on fait un calcul simple pour retrouver le nb de véhicules légers
       total_VL = total_TV - total_PL
 
-      print "   ligne " + str(i_intervalle) + ' (' + str(i) + ') :  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )'
+      print "   ligne " + str(i_data) + ' (' + str(i) + ') :  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )'
 
       # on peut incrémenter le compteur des valeurs de trafic
-      i_intervalle = i_intervalle + 1
+      i_data = i_data + 1
 
       # for debug : stop line
       if i == 3:
