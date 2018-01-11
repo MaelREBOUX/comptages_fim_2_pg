@@ -56,6 +56,9 @@ def lectureDonnees():
     if not i in metadata:
       # print line[:-1]
 
+      # on calcule l'heure de début et l'intervalle de mesure
+      print calculHoroEtIntervalle(i_intervalle)
+
       # on caclul le total TV pour la ligne en cours
       total_TV = lectureLigneTV(line[:-1])
 
@@ -71,7 +74,7 @@ def lectureDonnees():
       i_intervalle = i_intervalle + 1
 
       # for debug : stop line
-      if i == 23:
+      if i == 3:
         break
 
 
@@ -143,6 +146,24 @@ def lectureLignePL(num_ligneTV):
 
 
   return totalPL
+
+
+def calculHoroEtIntervalle(h_deb):
+
+  print "h_deb horodatage = " + str(h_deb)
+
+  # on calcule la chaîne qui représente l'intervalle ex :  08H00-09H00
+  # on commence par calculer l'heure de fin : facile
+  h_fin = h_deb + 1
+
+  # on formate les 2 heures sur 2 digit
+  s_h_deb = str(h_deb).zfill(2)
+  s_h_fin = str(h_fin).zfill(2)
+
+  s_intervalle = s_h_deb + 'H00-' + s_h_fin + 'H00'
+  print s_intervalle
+
+  return ""
 
 
 
