@@ -112,14 +112,14 @@ def lectureDonnees():
       # on fait un calcul simple pour retrouver le nb de véhicules légers
       total_VL = total_TV - total_PL
 
-      print "   [" + str(i) + ' ' + str(i_data) + '] | jour ' + str(j_courant) + ' h ' + str(h_courante) + ' | ' + date_tmst + ' | ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )'
+      print "   [" + str(i) + ' ' + str(i_data) + '] | jour ' + str(j_courant).zfill(2) + ' h ' + str(h_courante).zfill(2) + ' | ' + date_tmst + ' | ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )'
       # on peut incrémenter le compteur des valeurs de trafic
       i_data = i_data + 1
 
 
 
-      # for debug : stop line
-      if i == 80:
+      # on arrête à une ligne précise
+      if i > 168:
         break
 
 
