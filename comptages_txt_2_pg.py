@@ -14,12 +14,25 @@ import linecache
 
 # ATTENTION : fichier encodé en UCS-2 little endian // UTF-16
 # passer le fichier en UTF-8 pour le lire
+
 f_to_import = './fichiers_a_importer/test'
 
-station = ""
+# variables globales
+station_code = ""
+station_sens = ""
+campagne_date_deb = ""
+campagne_heure_deb = ""
+
 
 
 def lectureMetadonnees():
+
+  # on déclare ces variables comme globales
+  global station_code
+  global station_sens
+  global campagne_date_deb
+  global campagne_heure_deb
+
 
   # on lit la première ligne pour récupéer les métadonnées
   L_metadata = linecache.getline(f_to_import,1)
@@ -28,17 +41,20 @@ def lectureMetadonnees():
 
   # on met en mémoire
   # code de la station de comptage
-  station = metadata[2]
-  sens = metadata[4].strip()
-  date_deb = '20' + metadata[5].strip() +'-'+ metadata[6].strip() +'-'+ metadata[7].strip()
-  heure_deb = metadata[8].strip() + ':' + metadata[9].strip() + ':00'
+  station_code = metadata[2]
+  station_sens = metadata[4].strip()
+  campagne_date_deb = '20' + metadata[5].strip() +'-'+ metadata[6].strip() +'-'+ metadata[7].strip()
+  campagne_heure_deb = metadata[8].strip()   # '  09' -> '09'
+  campagne_heure_deb_jolie = metadata[8].strip() + ':' + metadata[9].strip() + ':00'
 
   print " Infos sur la station"
-  print "   " + station + ' | ' + sens + ' | ' + date_deb + ' ' + heure_deb
+  print "   " + station_code + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie
   print ""
 
 
 def lectureDonnees():
+
+  print "Les donnees de comptage"
 
   f = open(f_to_import,'r')
 
@@ -56,6 +72,9 @@ def lectureDonnees():
     if not i in metadata:
       # print line[:-1]
 
+      # le timestamp  '2016-10-11 09:00:00'
+      date_tmst = calculTimeStamp(i_data)
+
       # on calcule l'intervalle de mesure
       intervalle = calculIntervalle(i_data)
 
@@ -68,13 +87,13 @@ def lectureDonnees():
       # on fait un calcul simple pour retrouver le nb de véhicules légers
       total_VL = total_TV - total_PL
 
-      print "   ligne " + str(i_data) + ' (' + str(i) + ') : ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )'
+      print "   ligne " + str(i_data) + ' (' + str(i) + ') || ' + date_tmst + ' | ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )'
 
       # on peut incrémenter le compteur des valeurs de trafic
       i_data = i_data + 1
 
       # for debug : stop line
-      if i == 3:
+      if i == 10:
         break
 
 
@@ -164,6 +183,19 @@ def calculIntervalle(h_deb):
   #print s_intervalle
 
   return s_intervalle
+
+
+
+def calculTimeStamp(h_deb):
+
+  # format = 2016-10-11 09:00:00
+  # l'heure = fin de l'intervalle de mesure + formatage '9' -> '09:00:00'
+  h_fin = str(h_deb + 1)
+  h_fin = h_fin.zfill(2) + ':00:00'
+
+  TimeStamp = campagne_date_deb + ' ' + h_fin
+
+  return TimeStamp
 
 
 
