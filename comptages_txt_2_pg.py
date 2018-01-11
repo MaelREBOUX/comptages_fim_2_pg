@@ -68,7 +68,7 @@ def lectureDonnees():
       # on fait un calcul simple pour retrouver le nb de véhicules légers
       total_VL = total_TV - total_PL
 
-      print "   ligne " + str(i_data) + ' (' + str(i) + ') :  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )'
+      print "   ligne " + str(i_data) + ' (' + str(i) + ') : ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )'
 
       # on peut incrémenter le compteur des valeurs de trafic
       i_data = i_data + 1
@@ -150,7 +150,7 @@ def lectureLignePL(num_ligneTV):
 
 def calculIntervalle(h_deb):
 
-  print "h_deb horodatage = " + str(h_deb)
+  #print "h_deb horodatage = " + str(h_deb)
 
   # on calcule la chaîne qui représente l'intervalle ex :  08H00-09H00
   # on commence par calculer l'heure de fin : facile
