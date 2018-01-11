@@ -63,8 +63,15 @@ def lectureDonnees():
   # on pointe les lignes qui ne sont pas des données
   metadata = [0, 1, 170, 171]
 
+  # numéro de ligne dans le fichier entier
   i = 0
+  # numéro de ligne de données comptage
   i_data = 0
+  # numéro du jour
+  j_courant = 0
+  # heure du jour
+  h_courante = 0
+
 
   # on boucle sur les lignes
   for line in f_content:
@@ -87,13 +94,12 @@ def lectureDonnees():
       # on fait un calcul simple pour retrouver le nb de véhicules légers
       total_VL = total_TV - total_PL
 
-      print "   ligne " + str(i_data) + ' (' + str(i) + ') || ' + date_tmst + ' | ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )'
-
+      print "   [" + str(i) + ' ' + str(i_data) + '] | jour ' + str(j_courant) + ' h ' + str(h_courante) + ' | ' + date_tmst + ' | ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )'
       # on peut incrémenter le compteur des valeurs de trafic
       i_data = i_data + 1
 
       # for debug : stop line
-      if i == 10:
+      if i == 80:
         break
 
 
