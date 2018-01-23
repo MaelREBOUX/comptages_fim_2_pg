@@ -1,4 +1,5 @@
-﻿#-------------------------------------------------------------------------------
+﻿# coding: utf8
+#-------------------------------------------------------------------------------
 # Name:        module1
 # Purpose:
 #
@@ -11,6 +12,7 @@
 
 
 import linecache
+import encodings
 
 # ATTENTION : fichier encodé en UCS-2 little endian // UTF-16
 # passer le fichier en UTF-8 pour le lire
@@ -54,7 +56,7 @@ def lectureMetadonnees():
 
 def lectureDonnees():
 
-  print "Les donnees de comptage"
+  print u"Les données de comptage"
 
   f = open(f_to_import,'r')
 
