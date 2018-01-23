@@ -1,5 +1,5 @@
 ﻿
--- 17/11/2017 Maël REBOUX
+-- 23/01/2018 Maël REBOUX
 -- SIG Rennes Métropole
 
 
@@ -26,9 +26,6 @@ WITH (
 );
 
 -- indexes
-
--- permissions
-GRANT SELECT ON TABLE mobilite_transp.comptage_enquete TO consult;
 
 
 
@@ -61,9 +58,6 @@ WITH (
 
 -- indexes
 
--- permissions
-GRANT SELECT ON TABLE mobilite_transp.comptage_station TO consult;
-
 
 
 -- DROP TABLE mobilite_transp.comptage_automatique ;
@@ -91,9 +85,6 @@ WITH (
 );
 
 -- indexes
-
--- permissions
-GRANT SELECT ON TABLE mobilite_transp.comptage_automatique TO consult;
 
 
 
@@ -166,5 +157,29 @@ CREATE VIEW mobilite_transp.v_comptage_station_automatique AS
   FROM mobilite_transp.comptage_automatique a
     LEFT JOIN mobilite_transp.comptage_station b ON a.station_id = b.station_id ;
 
--- permissions
+
+-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- les permissions
+
+-- les droits pour le compte geocarto en écriture
+GRANT USAGE ON SCHEMA mobilite_transp TO geocarto ;
+GRANT ALL ON SEQUENCE mobilite_transp.comptage_enquete_enquete_id_seq TO geocarto;
+GRANT ALL ON SEQUENCE mobilite_transp.comptage_station_station_id_seq TO geocarto;
+GRANT ALL ON TABLE mobilite_transp.comptage_automatique TO geocarto;
+GRANT ALL ON TABLE mobilite_transp.comptage_dom_station_sens TO geocarto;
+GRANT ALL ON TABLE mobilite_transp.comptage_dom_station_type TO geocarto;
+GRANT ALL ON TABLE mobilite_transp.comptage_enquete TO geocarto;
+GRANT ALL ON TABLE mobilite_transp.comptage_station TO geocarto;
+GRANT ALL ON TABLE mobilite_transp.v_comptage_station_automatique TO geocarto;
+
+-- les droits en lecture pour consult
+GRANT USAGE ON SCHEMA mobilite_transp TO consult ;
+GRANT SELECT ON SEQUENCE mobilite_transp.comptage_enquete_enquete_id_seq TO consult;
+GRANT SELECT ON SEQUENCE mobilite_transp.comptage_station_station_id_seq TO consult;
+GRANT SELECT ON TABLE mobilite_transp.comptage_automatique TO consult;
+GRANT SELECT ON TABLE mobilite_transp.comptage_dom_station_sens TO consult;
+GRANT SELECT ON TABLE mobilite_transp.comptage_dom_station_type TO consult;
+GRANT SELECT ON TABLE mobilite_transp.comptage_enquete TO consult;
+GRANT SELECT ON TABLE mobilite_transp.comptage_station TO consult;
 GRANT SELECT ON TABLE mobilite_transp.v_comptage_station_automatique TO consult;
+
