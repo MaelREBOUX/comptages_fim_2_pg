@@ -253,39 +253,83 @@ def calculTimeStamp(jour, heure):
 
 def insertEnqueteInDB ():
 
-  # TODO
-  # faire le code qui lit un fichier contenant les infos sur l'enquête à insérer
-
-  fakeSQLEnquete = u"""INSERT INTO mobilite_transp.comptage_enquete VALUES (nextval('mobilite_transp.comptage_enquete_enquete_uid_seq'), '35022', 'campagne automne 2017', 'Bécherel', '2017-10-09 01:00:00', '2017-10-15 00:00:00', 'RM DMT SMU', 'Alyce', 'non', 'non', 'oui', 'oui');"""
   global enquete_id
 
   try:
-      conn = psycopg2.connect(strConnDB)
+    # connexion à la base, si plante, on sort
+    conn = psycopg2.connect(strConnDB)
+
+    cursor = conn.cursor()
+
+
+    # TODO
+    # faire le code qui lit un fichier contenant les infos sur l'enquête à insérer
+    #
+    #
+    #
+    #
+
+    # on vérifie si l'enquête existe déjà en base ou pas
+    SQLVerif = u"""SELECT COUNT(*)
+    FROM mobilite_transp.comptage_enquete
+    WHERE
+     comm_insee = '35022'
+     AND site = 'Bécherel'
+     AND date_deb::date = '2017-10-09';"""
+
+    try:
+      cursor.execute(SQLVerif)
+      result = cursor.fetchone()
+      enquete_test = result[0]
+      #print str(enquete_test)
+
+      # si diffèrent de 0 alors on insère pas
+      if enquete_test > 0 :
+        print u"L'enquête existe déjà !"
+
+        # TODO
+        # récupérer l'ID de cette enquête
+
+
+        return 0
+        pass
+      else:
+        # pas de doublon -> on peut insérer la nouvelle enquête
+        print u"Pas d'enquête pré-existante dans la base avec ces infos."
+
+        try:
+            # on insert la nouvelle enquête
+
+            fakeSQLEnquete = u"""INSERT INTO mobilite_transp.comptage_enquete
+            VALUES (nextval('mobilite_transp.comptage_enquete_enquete_uid_seq'), '35022', 'campagne automne 2017', 'Bécherel',
+            '2017-10-09 01:00:00', '2017-10-15 00:00:00', 'RM DMT SMU', 'Alyce', 'non', 'non', 'oui', 'oui');"""
+
+            cursor.execute(fakeSQLEnquete)
+            conn.commit()
+
+            # et on récupère son identifiant
+            SQL = "SELECT last_value FROM mobilite_transp.comptage_enquete_enquete_uid_seq ;"
+            cursor.execute(SQL)
+
+            result = cursor.fetchone()
+            enquete_id = result[0]
+
+            print u"Enquête n° " + str(enquete_id) +  u" créée"
+
+            # on retourne cette valeur
+            return enquete_id
+
+        except:
+            print u"Impossible d'exécuter la requête d'insertion d'une enquête"
+
+    except:
+      print u"Impossible d'exécuter la requête de contrôle de l'enquête"
+
   except:
       print "Impossible de se connecter à la base de données"
 
-  cursor = conn.cursor()
-
-  try:
-      # on insert l'enquête
-      cursor.execute(fakeSQLEnquete)
-      conn.commit()
-
-      # et on récupère son identifiant
-      SQL = "SELECT last_value FROM mobilite_transp.comptage_enquete_enquete_uid_seq ;"
-      cursor.execute(SQL)
-
-      result = cursor.fetchone()
-      enquete_id = result[0]
-
-      print u"Enquête n° " + str(enquete_id) +  u" créée"
-
-      # on retourne cette valeur
-      return enquete_id
 
 
-  except:
-      print "Impossible d'exécuter la requête d'insertion d'une enquête"
 
 
   cursor.close()
