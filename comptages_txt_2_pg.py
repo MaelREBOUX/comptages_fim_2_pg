@@ -5,7 +5,7 @@
 #
 # Author:      m.reboux
 #
-# Created:     10/01/2018
+# Created:     23/01/2018
 # Copyright:   (c) m.reboux 2018
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
@@ -13,13 +13,21 @@
 
 import linecache
 import encodings
+import psycopg2
 
 # ATTENTION : fichier encodé en UCS-2 little endian // UTF-16
 # passer le fichier en UTF-8 pour le lire
 
 f_to_import = './fichiers_a_importer/test'
 
+
+# la base de données
+strConnDB = "host='localhost' dbname='bdu' user='geocarto' password='geocarto'"
+
+
 # variables globales
+enquete_id = 0
+station_id = 0
 station_code = ""
 station_sens = ""
 campagne_date_deb = ""
@@ -243,13 +251,57 @@ def calculTimeStamp(jour, heure):
 
 
 
+def insertEnqueteInDB ():
+
+  # TODO
+  # faire le code qui lit un fichier contenant les infos sur l'enquête à insérer
+
+  fakeSQLEnquete = u"""INSERT INTO mobilite_transp.comptage_enquete VALUES (nextval('mobilite_transp.comptage_enquete_enquete_uid_seq'), '35022', 'campagne automne 2017', 'Bécherel', '2017-10-09 01:00:00', '2017-10-15 00:00:00', 'RM DMT SMU', 'Alyce', 'non', 'non', 'oui', 'oui');"""
+  global enquete_id
+
+  try:
+      conn = psycopg2.connect(strConnDB)
+  except:
+      print "Impossible de se connecter à la base de données"
+
+  cursor = conn.cursor()
+
+  try:
+      # on insert l'enquête
+      cursor.execute(fakeSQLEnquete)
+      conn.commit()
+
+      # et on récupère son identifiant
+      SQL = "SELECT last_value FROM mobilite_transp.comptage_enquete_enquete_uid_seq ;"
+      cursor.execute(SQL)
+
+      result = cursor.fetchone()
+      enquete_id = result[0]
+
+      print u"Enquête n° " + str(enquete_id) +  u" créée"
+
+      # on retourne cette valeur
+      return enquete_id
+
+
+  except:
+      print "Impossible d'exécuter la requête d'insertion d'une enquête"
+
+
+  cursor.close()
+  conn.close()
+
+
 def main():
 
   print "++++++++ debut "
 
-  lectureMetadonnees()
+  insertEnqueteInDB()
 
-  lectureDonnees()
+
+  #lectureMetadonnees()
+
+  #lectureDonnees()
 
   print "++++++++ fin "
 
