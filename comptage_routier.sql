@@ -6,7 +6,7 @@
 -- DROP TABLE mobilite_transp.comptage_enquete CASCADE ;
 CREATE TABLE mobilite_transp.comptage_enquete
 (
-  enquete_uid serial NOT NULL,
+  enquete_uid serial NOT NULL, -- identifiant interne
   comm_insee varchar(5) NOT NULL,
   description text NOT NULL,
   site text,
@@ -32,8 +32,8 @@ WITH (
 -- DROP TABLE mobilite_transp.comptage_station CASCADE ;
 CREATE TABLE mobilite_transp.comptage_station
 (
-  station_uid serial NOT NULL,
-  
+  station_uid serial NOT NULL, -- identifiant interne
+  station_id text NOT NULL, -- identifiant fourni par le prestataire
   comm_insee varchar(5) NOT NULL,
   materiel text,
   type integer,
