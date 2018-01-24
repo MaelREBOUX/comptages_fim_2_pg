@@ -76,7 +76,7 @@ def lectureKMLStations():
 
   # /kml/Document/Folder/name  = 'Betton'
   # /kml/Document/Folder/Placemark/name  =  '1 CR  Becherel'
-  # /kml/Document/Folder/Placemark/Point/coordinates
+  # /kml/Document/Folder/Placemark/Point/coordinates =  '-1.6471728,48.1627498,0'
 
 
 ##  <ns0:kml xmlns:ns0="http://www.opengis.net/kml/2.2">
@@ -97,11 +97,7 @@ def lectureKMLStations():
 ##      </ns0:Placemark>
 
 
-  # ------------------------------------------------
-  # essai 3  pyKml
-
-  print "pykml"
-
+  # on lit le fichier
   root = parser.fromstring(open(kml_stations, 'r').read())
 
   #print root.Document.Folder.Placemark.Point.coordinates  #  renvoie    -1.6471728,48.1627498,0
@@ -117,80 +113,19 @@ def lectureKMLStations():
 
     # 2e boucle sur les placemark
     # on cherche le nb de Placemark dans un Folder
-    iPlacemark = len(Folder[iFolder].Placemark)
+    iMaxPlacemark = len(Folder[iFolder].Placemark)
 
     # et on boucle
-    for i in range(iPlacemark):
-      print( i )
-
-    return
-
-    try:
-      for Placemark in Folder:
-        station_name = root.Document.Folder[iFolder].Placemark[iPlacemark].name
-        station_name2 = str(station_name).replace('\n','')
-
-        print "  Placemark " + str(iPlacemark) + " : " +  station_name2
-        iPlacemark = iPlacemark + 1
-
-    except NameError:
-      print("La variable numerateur ou denominateur n'a pas été définie.")
-    except TypeError:
-      print("La variable numerateur ou denominateur possède un type incompatible avec la division.")
-    except ZeroDivisionError:
-      print("La variable denominateur est égale à 0.")
-    else:
-      print("Le résultat obtenu est", resultat)
-    finally:
-      iPlacemark = 0
+    for iPlacemark in range(iMaxPlacemark):
+      station_name = root.Document.Folder[iFolder].Placemark[iPlacemark].name
+      #station_name2 = str(station_name).replace('\n','')
+      print "  Placemark " + str(iPlacemark) + " : " +  station_name
 
     iFolder = iFolder + 1
 
   return
 
-  # ------------------------------------------------
-  # essai 1
 
-  # le namespace du KML fourni
-  ns = {'kml': 'http://www.opengis.net/kml/2.2'}
-
-  tree = etree.parse(kml_stations)
-  root = tree.getroot()
-  #print (ET.tostring(root))
-
-  document = root[0]
-
-
-  #children = list(document)
-  #for child in children:
-  #  print(child.tag)
-
-  # sans namespace
-  #placemarks = root.findall('.//{http://www.opengis.net/kml/2.2}Folder')
-  # avec namespace
-  placemarks = root.findall('.//kml:Placemark', ns)
-
-  print placemarks
-  print placemarks[0].tag[0]
-
-  for place in placemarks:
-    place.findall('.//kml:name', ns)
-    print place.tag  # on obtient {http://www.opengis.net/kml/2.2}Placemark
-
-
-  return
-
-  # ------------------------------------------------
-  # essai 2
-
-  xmlns="http://www.opengis.net/kml/2.2"
-
-  result=tree.xpath('//Placemark/name/text()')
-
-  for child in result:
-    print child.tag
-
-  #result = document.xpath('//Folder/Placemark/name/text()')
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
