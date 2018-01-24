@@ -1,0 +1,2441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Campagne Comptage Octobre 2017</name>
+    <description/>
+    <Style id="icon-1899-01579B-nodesc-normal">
+      <IconStyle>
+        <color>ff9b5701</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-01579B-nodesc-highlight">
+      <IconStyle>
+        <color>ff9b5701</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-01579B-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-01579B-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-01579B-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-0288D1-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-0288D1-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-0288D1">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0288D1-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0288D1-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-0288D1-nodesc-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-0288D1-nodesc-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-0288D1-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0288D1-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0288D1-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-4E342E-nodesc-normal">
+      <IconStyle>
+        <color>ff2e344e</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-4E342E-nodesc-highlight">
+      <IconStyle>
+        <color>ff2e344e</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-4E342E-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-4E342E-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-4E342E-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-558B2F-nodesc-normal">
+      <IconStyle>
+        <color>ff2f8b55</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-558B2F-nodesc-highlight">
+      <IconStyle>
+        <color>ff2f8b55</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-558B2F-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-558B2F-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-558B2F-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-7CB342-nodesc-normal">
+      <IconStyle>
+        <color>ff42b37c</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-7CB342-nodesc-highlight">
+      <IconStyle>
+        <color>ff42b37c</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-7CB342-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-7CB342-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-7CB342-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-817717-nodesc-normal">
+      <IconStyle>
+        <color>ff177781</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-817717-nodesc-highlight">
+      <IconStyle>
+        <color>ff177781</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-817717-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-817717-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-817717-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-9C27B0-nodesc-normal">
+      <IconStyle>
+        <color>ffb0279c</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-9C27B0-nodesc-highlight">
+      <IconStyle>
+        <color>ffb0279c</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-9C27B0-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-9C27B0-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-9C27B0-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-E65100-normal">
+      <IconStyle>
+        <color>ff0051e6</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-E65100-highlight">
+      <IconStyle>
+        <color>ff0051e6</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-E65100">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-E65100-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-E65100-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-E65100-nodesc-normal">
+      <IconStyle>
+        <color>ff0051e6</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1899-E65100-nodesc-highlight">
+      <IconStyle>
+        <color>ff0051e6</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1899-E65100-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-E65100-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-E65100-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-E65100-7394-nodesc-normal">
+      <LineStyle>
+        <color>ff0051e6</color>
+        <width>7.394</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-E65100-7394-nodesc-highlight">
+      <LineStyle>
+        <color>ff0051e6</color>
+        <width>11.091</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-E65100-7394-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-E65100-7394-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-E65100-7394-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-F57C00-7588-nodesc-normal">
+      <LineStyle>
+        <color>ff007cf5</color>
+        <width>7.588</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-F57C00-7588-nodesc-highlight">
+      <LineStyle>
+        <color>ff007cf5</color>
+        <width>11.382</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-F57C00-7588-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-F57C00-7588-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-F57C00-7588-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFFF8D-10494-nodesc-normal">
+      <LineStyle>
+        <color>ff8dffff</color>
+        <width>10.494</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-FFFF8D-10494-nodesc-highlight">
+      <LineStyle>
+        <color>ff8dffff</color>
+        <width>15.741</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-FFFF8D-10494-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFFF8D-10494-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFFF8D-10494-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFFF8D-11075-nodesc-normal">
+      <LineStyle>
+        <color>ff8dffff</color>
+        <width>11.075</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-FFFF8D-11075-nodesc-highlight">
+      <LineStyle>
+        <color>ff8dffff</color>
+        <width>16.6125</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-FFFF8D-11075-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFFF8D-11075-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFFF8D-11075-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-FFFF8D-13013-nodesc-normal">
+      <LineStyle>
+        <color>ff8dffff</color>
+        <width>13.013</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-FFFF8D-13013-nodesc-highlight">
+      <LineStyle>
+        <color>ff8dffff</color>
+        <width>19.5195</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-FFFF8D-13013-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-FFFF8D-13013-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-FFFF8D-13013-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-000000-1200-77-nodesc-normal">
+      <LineStyle>
+        <color>ff000000</color>
+        <width>1.2</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d000000</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="poly-000000-1200-77-nodesc-highlight">
+      <LineStyle>
+        <color>ff000000</color>
+        <width>1.8</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d000000</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="poly-000000-1200-77-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-000000-1200-77-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-000000-1200-77-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-0288D1-1200-77-normal">
+      <LineStyle>
+        <color>ffd18802</color>
+        <width>1.2</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4dd18802</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+    </Style>
+    <Style id="poly-0288D1-1200-77-highlight">
+      <LineStyle>
+        <color>ffd18802</color>
+        <width>1.8</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4dd18802</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+    </Style>
+    <StyleMap id="poly-0288D1-1200-77">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-0288D1-1200-77-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-0288D1-1200-77-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-7CB342-1200-77-nodesc-normal">
+      <LineStyle>
+        <color>ff42b37c</color>
+        <width>1.2</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d42b37c</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="poly-7CB342-1200-77-nodesc-highlight">
+      <LineStyle>
+        <color>ff42b37c</color>
+        <width>1.8</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d42b37c</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="poly-7CB342-1200-77-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-7CB342-1200-77-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-7CB342-1200-77-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-87CEAC-1200-77-nodesc-normal">
+      <LineStyle>
+        <color>ffacce87</color>
+        <width>1.2</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4dacce87</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="poly-87CEAC-1200-77-nodesc-highlight">
+      <LineStyle>
+        <color>ffacce87</color>
+        <width>1.8</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4dacce87</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="poly-87CEAC-1200-77-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-87CEAC-1200-77-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-87CEAC-1200-77-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-B2EBF2-1200-77-nodesc-normal">
+      <LineStyle>
+        <color>fff2ebb2</color>
+        <width>1.2</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4df2ebb2</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="poly-B2EBF2-1200-77-nodesc-highlight">
+      <LineStyle>
+        <color>fff2ebb2</color>
+        <width>1.8</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4df2ebb2</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="poly-B2EBF2-1200-77-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-B2EBF2-1200-77-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-B2EBF2-1200-77-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-C5E1A5-1200-77-nodesc-normal">
+      <LineStyle>
+        <color>ffa5e1c5</color>
+        <width>1.2</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4da5e1c5</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="poly-C5E1A5-1200-77-nodesc-highlight">
+      <LineStyle>
+        <color>ffa5e1c5</color>
+        <width>1.8</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4da5e1c5</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="poly-C5E1A5-1200-77-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-C5E1A5-1200-77-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-C5E1A5-1200-77-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-E6EE9C-1200-77-nodesc-normal">
+      <LineStyle>
+        <color>ff9ceee6</color>
+        <width>1.2</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d9ceee6</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="poly-E6EE9C-1200-77-nodesc-highlight">
+      <LineStyle>
+        <color>ff9ceee6</color>
+        <width>1.8</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d9ceee6</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="poly-E6EE9C-1200-77-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-E6EE9C-1200-77-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-E6EE9C-1200-77-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-F57C00-1200-77-nodesc-normal">
+      <LineStyle>
+        <color>ff007cf5</color>
+        <width>1.2</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d007cf5</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="poly-F57C00-1200-77-nodesc-highlight">
+      <LineStyle>
+        <color>ff007cf5</color>
+        <width>1.8</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d007cf5</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="poly-F57C00-1200-77-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-F57C00-1200-77-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-F57C00-1200-77-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-FBC02D-1200-77-nodesc-normal">
+      <LineStyle>
+        <color>ff2dc0fb</color>
+        <width>1.2</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d2dc0fb</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="poly-FBC02D-1200-77-nodesc-highlight">
+      <LineStyle>
+        <color>ff2dc0fb</color>
+        <width>1.8</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d2dc0fb</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="poly-FBC02D-1200-77-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-FBC02D-1200-77-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-FBC02D-1200-77-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-FF5252-1200-77-nodesc-normal">
+      <LineStyle>
+        <color>ff5252ff</color>
+        <width>1.2</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d5252ff</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="poly-FF5252-1200-77-nodesc-highlight">
+      <LineStyle>
+        <color>ff5252ff</color>
+        <width>1.8</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d5252ff</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="poly-FF5252-1200-77-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-FF5252-1200-77-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-FF5252-1200-77-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-FFEA00-1200-77-nodesc-normal">
+      <LineStyle>
+        <color>ff00eaff</color>
+        <width>1.2</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d00eaff</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="poly-FFEA00-1200-77-nodesc-highlight">
+      <LineStyle>
+        <color>ff00eaff</color>
+        <width>1.8</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d00eaff</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="poly-FFEA00-1200-77-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-FFEA00-1200-77-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-FFEA00-1200-77-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-FFFF8D-1200-77-nodesc-normal">
+      <LineStyle>
+        <color>ff8dffff</color>
+        <width>1.2</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d8dffff</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="poly-FFFF8D-1200-77-nodesc-highlight">
+      <LineStyle>
+        <color>ff8dffff</color>
+        <width>1.8</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>4d8dffff</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="poly-FFFF8D-1200-77-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-FFFF8D-1200-77-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-FFFF8D-1200-77-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>Betton</name>
+      <Placemark>
+        <name>1 CR Mesures de vitesse Betton
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.6471728,48.1627498,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>2 CR Mesures e Vitesse Betton
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.6477897,48.1614742,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>3 CR Betton
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.6382584,48.1569412,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>4 CR Betton
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.6396371,48.1568017,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>1 CD Betton 3B
+</name>
+        <styleUrl>#poly-000000-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.6484347,48.1607344,0
+                -1.6486493,48.1604839,0
+                -1.6482764,48.1603729,0
+                -1.6480887,48.1606646,0
+                -1.6484347,48.1607344,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>2 CD Betton 3B
+</name>
+        <styleUrl>#poly-000000-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.6473994,48.1625852,0
+                -1.6476046,48.1622104,0
+                -1.6473283,48.1621308,0
+                -1.6470882,48.1624984,0
+                -1.6473994,48.1625852,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>5 CR Betton
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.6395324,48.1569752,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>6 CR Betton
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.6383362,48.1568052,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Becherel</name>
+      <Placemark>
+        <name>1 CR  Becherel
+</name>
+        <styleUrl>#icon-1899-4E342E-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.9484787,48.2932015,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>2 CR Becherel
+</name>
+        <styleUrl>#icon-1899-4E342E-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.9452721,48.2962271,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>3 CR Becherel
+</name>
+        <styleUrl>#icon-1899-4E342E-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.9431075,48.2972415,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>4 CR Becherel
+</name>
+        <styleUrl>#icon-1899-4E342E-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.9458407,48.294282,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>5 CR Becherel
+</name>
+        <styleUrl>#icon-1899-4E342E-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.9454277,48.2956293,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>6 CR Becherel
+</name>
+        <styleUrl>#icon-1899-4E342E-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.9422586,48.2964724,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Cesson Sevigné</name>
+      <Placemark>
+        <name>1 CR Cesson Cevigne
+</name>
+        <styleUrl>#icon-1899-7CB342-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.6248769,48.1526021,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Chevaigné</name>
+      <Placemark>
+        <name>1 CR Chevaigné
+</name>
+        <styleUrl>#icon-1899-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.6276959,48.2025119,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Gévezé</name>
+      <Placemark>
+        <name>1 CR Gévezé
+</name>
+        <styleUrl>#icon-1899-9C27B0-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7882234,48.2197512,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>2 CR Gévezé
+</name>
+        <styleUrl>#icon-1899-9C27B0-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7867455,48.2185753,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>3 CR Gévezé
+</name>
+        <styleUrl>#icon-1899-9C27B0-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7754909,48.21348,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>1 CD Gévezé 5B
+</name>
+        <styleUrl>#poly-FFFF8D-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7912623,48.2186763,0
+                -1.7912221,48.2185199,0
+                -1.7911242,48.218435,0
+                -1.7909056,48.2184118,0
+                -1.7907272,48.2185029,0
+                -1.7905449,48.218544,0
+                -1.7902981,48.2187656,0
+                -1.790577,48.2188907,0
+                -1.7907386,48.2187835,0
+                -1.7908922,48.2187853,0
+                -1.79108,48.2187915,0
+                -1.7912476,48.2187379,0
+                -1.7912623,48.2186763,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>2CD Gévezé 3B
+</name>
+        <styleUrl>#poly-E6EE9C-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7871827,48.2202874,0
+                -1.7869024,48.2201158,0
+                -1.7865819,48.2203374,0
+                -1.7868447,48.2204947,0
+                -1.7871827,48.2202874,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>3 CD Gévezé 3B
+</name>
+        <styleUrl>#poly-FFFF8D-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7849806,48.218788,0
+                -1.7848089,48.2185557,0
+                -1.7843503,48.2185575,0
+                -1.7840686,48.2187344,0
+                -1.7845944,48.2190435,0
+                -1.7849806,48.218788,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>4 CD Gévezé 3B 
+</name>
+        <styleUrl>#poly-FFFF8D-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7755325,48.2147275,0
+                -1.775676,48.2145389,0
+                -1.7753515,48.2143915,0
+                -1.7752039,48.2145943,0
+                -1.7755325,48.2147275,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>5 CD Gevézé 3B
+</name>
+        <styleUrl>#poly-FFFF8D-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.8030775,48.2215419,0
+                -1.8029326,48.2204446,0
+                -1.8012857,48.2205376,0
+                -1.8014681,48.2215776,0
+                -1.8030775,48.2215419,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>1 File Attente Gévezé HPM
+</name>
+        <styleUrl>#line-E65100-7394-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -1.7843664,48.2186325,0
+            -1.7849404,48.2186843,0
+            -1.7853883,48.2187237,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>2 File Attente Gévezé HPM
+</name>
+        <styleUrl>#line-F57C00-7588-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -1.7870057,48.2202766,0
+            -1.7873383,48.2201015,0
+            -1.7875421,48.2200104,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>La Chapelle-des-Fougeretz</name>
+      <Placemark>
+        <name>1 CR la Chapelle-des-Foug
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7353329,48.1801805,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>2 CR la Chapelle-des-Foug</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7377281,48.1786746,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>3 CR la Chapelle-des-Foug</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7331174,48.1788123,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>4 CR la Chapelle-des-Foug</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7329457,48.1770345,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>5 CR la Chapelle-des-Foug</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7320821,48.1774297,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>6 CR la Chapelle-des-Foug</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7323248,48.176971,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>1-O/D la Chapelle-des-Foug</name>
+        <description>1 vers 2 matin</description>
+        <styleUrl>#icon-1899-E65100</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7219406,48.1741816,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>2-OD la Chapelle-des-Foug</name>
+        <description>2 vers 1 soir</description>
+        <styleUrl>#icon-1899-E65100</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7366391,48.1726469,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>1 CD la Chapelle-des-Foug 3B
+</name>
+        <styleUrl>#poly-7CB342-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7327741,48.1770238,0
+                -1.7330128,48.1767823,0
+                -1.7327365,48.1766231,0
+                -1.7324764,48.1768145,0
+                -1.7327741,48.1770238,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>2 CD la Chapelle-des-Foug 3B</name>
+        <styleUrl>#poly-7CB342-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7318487,48.177453,0
+                -1.7320526,48.1772903,0
+                -1.7317683,48.1770953,0
+                -1.7315215,48.1772348,0
+                -1.7318487,48.177453,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>3 CD la Chapelle-des-Foug 3B
+</name>
+        <styleUrl>#poly-7CB342-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7201489,48.1715111,0
+                -1.7199102,48.17108,0
+                -1.7194033,48.1711837,0
+                -1.7196661,48.1716166,0
+                -1.7201489,48.1715111,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>1 File Attente HPM
+</name>
+        <styleUrl>#line-FFFF8D-13013-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -1.7215598,48.1741298,0
+            -1.7216671,48.1741459,0
+            -1.7217851,48.174153,0
+            -1.722005,48.1741441,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>2 File attente HPM
+</name>
+        <styleUrl>#line-FFFF8D-10494-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -1.7211574,48.1740493,0
+            -1.7211762,48.173933,0
+            -1.7211387,48.1738185,0
+            -1.7210662,48.1736379,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>3 File Attente HPM
+</name>
+        <styleUrl>#line-FFFF8D-11075-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -1.7210743,48.1742836,0
+            -1.7209348,48.1742639,0
+            -1.7206827,48.1742693,0
+            -1.7204037,48.1742943,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>4 File Attente HPM
+</name>
+        <styleUrl>#line-FFFF8D-10494-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            -1.7214498,48.1743623,0
+            -1.7214391,48.1744714,0
+            -1.7214391,48.1745286,0
+            -1.7214739,48.1746717,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Zone de Stationnement Rotation
+</name>
+        <description>1 passage toutes les heures de 6h à19h</description>
+        <styleUrl>#poly-0288D1-1200-77</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7338376,48.1789259,0
+                -1.7341916,48.1786469,0
+                -1.7345564,48.1785467,0
+                -1.7349212,48.1783894,0
+                -1.735007,48.178003,0
+                -1.7346637,48.1779959,0
+                -1.7342774,48.17791,0
+                -1.7338161,48.1775952,0
+                -1.7336793,48.1765364,0
+                -1.7331671,48.1764389,0
+                -1.7336659,48.1757423,0
+                -1.7334191,48.175685,0
+                -1.7327606,48.1767125,0
+                -1.7326145,48.1768154,0
+                -1.7323878,48.1768807,0
+                -1.7319104,48.1766008,0
+                -1.7315336,48.1769603,0
+                -1.7318635,48.1771338,0
+                -1.7316435,48.1772661,0
+                -1.7327754,48.1779458,0
+                -1.7329685,48.1778599,0
+                -1.7336015,48.178418,0
+                -1.7333762,48.1786183,0
+                -1.7338376,48.1789259,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Laillé</name>
+      <Placemark>
+        <name>1 CR Laillé
+</name>
+        <styleUrl>#icon-1899-01579B-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7154604,47.9818539,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Le Rheu</name>
+      <Placemark>
+        <name>1 CR le Rheu
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.8085921,48.1012053,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>2 CR Le Rheu</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7872953,48.0987915,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>3 CR Le Rheu
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7866838,48.105461,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>4 CR Le Rheu</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7951274,48.1062796,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>5 CR Le Rheu</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7937005,48.0923415,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>6 CR Le Rheu</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7591751,48.0983034,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>7 CR Le Rheu</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7726719,48.079061,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>8 CR Le Rheu</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.8019831,48.0937264,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>9 CR Le Rheu
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7873597,48.0985828,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>1 CD le Rheu 4B
+</name>
+        <styleUrl>#poly-B2EBF2-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.793793,48.1006733,0
+                -1.7940746,48.1005479,0
+                -1.7938627,48.100358,0
+                -1.7935945,48.1005085,0
+                -1.793793,48.1006733,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>2 CD le Rheu 3B
+</name>
+        <styleUrl>#poly-B2EBF2-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7938077,48.101594,0
+                -1.7939687,48.1013557,0
+                -1.7936119,48.1012518,0
+                -1.7934698,48.1014937,0
+                -1.7938077,48.101594,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>3 CD le Rheu 3B
+</name>
+        <styleUrl>#poly-B2EBF2-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7956343,48.102194,0
+                -1.7958422,48.1018761,0
+                -1.7956947,48.1018143,0
+                -1.7955217,48.1018591,0
+                -1.7954077,48.1018232,0
+                -1.7953084,48.10198,0
+                -1.7953889,48.1021107,0
+                -1.7956343,48.102194,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>4 CD le Rheu 4B
+</name>
+        <styleUrl>#poly-B2EBF2-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7962244,48.1016549,0
+                -1.79649,48.1014131,0
+                -1.7962271,48.1012196,0
+                -1.7959374,48.1014937,0
+                -1.7962244,48.1016549,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>5 CD le Rheu 3B
+</name>
+        <styleUrl>#poly-B2EBF2-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7967474,48.0997544,0
+                -1.7970291,48.0995555,0
+                -1.7968386,48.0994122,0
+                -1.7965087,48.0995842,0
+                -1.7967474,48.0997544,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>6 CD le Rheu 3B
+</name>
+        <styleUrl>#poly-B2EBF2-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7968574,48.0992277,0
+                -1.7964819,48.0990092,0
+                -1.7962244,48.0991507,0
+                -1.7962378,48.0993674,0
+                -1.7964336,48.0994606,0
+                -1.7968574,48.0992277,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>7 CD le Rheu 3B
+</name>
+        <styleUrl>#poly-B2EBF2-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7946929,48.1001753,0
+                -1.7946178,48.0999621,0
+                -1.794312,48.1001251,0
+                -1.7944542,48.1002864,0
+                -1.7946929,48.1001753,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>O/D RPM ou Drone
+</name>
+        <styleUrl>#poly-FBC02D-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7935342,48.0896255,0
+                -1.7931962,48.0890306,0
+                -1.7919624,48.0889482,0
+                -1.7911792,48.0893388,0
+                -1.7909271,48.0894427,0
+                -1.7912167,48.0901809,0
+                -1.7919409,48.0907362,0
+                -1.7933411,48.0906144,0
+                -1.7935342,48.0896255,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Mordelles</name>
+      <Placemark>
+        <name>1 CR Mordelles
+</name>
+        <styleUrl>#icon-1899-4E342E-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.8326381,48.0751041,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>2 CR Mordelles
+</name>
+        <styleUrl>#icon-1899-4E342E-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.8545598,48.081679,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>1 CD Mordelles 5B
+</name>
+        <styleUrl>#poly-FF5252-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.8448448,48.0791219,0
+                -1.8451774,48.0787725,0
+                -1.8455127,48.0787124,0
+                -1.8454295,48.078552,0
+                -1.8447724,48.0784643,0
+                -1.8444425,48.0790663,0
+                -1.8448448,48.0791219,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>2 CD Mordelles 3B
+</name>
+        <styleUrl>#poly-F57C00-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.8410066,48.0860564,0
+                -1.8411219,48.0858898,0
+                -1.8414196,48.085811,0
+                -1.841496,48.0857089,0
+                -1.8415269,48.0855888,0
+                -1.8415028,48.0853451,0
+                -1.8410361,48.0852269,0
+                -1.8407518,48.0853164,0
+                -1.8405291,48.0856336,0
+                -1.8406177,48.0859794,0
+                -1.8410066,48.0860564,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>3 CD Mordelles 3B
+</name>
+        <styleUrl>#poly-E6EE9C-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.8282071,48.0812274,0
+                -1.8281025,48.08093,0
+                -1.8271744,48.0810948,0
+                -1.8273675,48.0814461,0
+                -1.827617,48.0815572,0
+                -1.8280408,48.0814819,0
+                -1.8282071,48.0812274,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>4 CD Mordelles 4B
+</name>
+        <styleUrl>#poly-FFEA00-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.8388045,48.0775574,0
+                -1.838496,48.0772438,0
+                -1.8381849,48.0771238,0
+                -1.8379784,48.0772385,0
+                -1.8379784,48.0774195,0
+                -1.837906,48.0774804,0
+                -1.837965,48.0776739,0
+                -1.8383217,48.0776919,0
+                -1.8388045,48.0775574,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Pacé</name>
+      <Placemark>
+        <name>1 CR Pacé
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7935181,48.1517636,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>2 CR Pacé
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7909753,48.156646,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>3 CR Pacé</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7857397,48.1569537,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>4 CR Pacé</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7713094,48.1567533,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>5 CR Pacé</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7615891,48.1639887,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>6 CR Pacé</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7564607,48.148173,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>7 CR Pacé</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7640218,48.1444076,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>8 CR Pacé</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.770502,48.1434858,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>9 CR Pacé</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7719102,48.1417927,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>10 CR Pacé
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7717358,48.1393531,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>11 CR Pacé 
+</name>
+        <description>File de droite sens Nord/Sud</description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7700943,48.1401326,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>12 CR Pacé
+</name>
+        <description>Sortie Tunnel sens Nord sud</description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7699146,48.1403752,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>13 CR Pacé
+</name>
+        <styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7565304,48.1481139,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>1 CD Pacé 4B
+</name>
+        <styleUrl>#poly-C5E1A5-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7811048,48.1482965,0
+                -1.7814803,48.1481282,0
+                -1.7815608,48.147833,0
+                -1.781255,48.1475037,0
+                -1.7808419,48.1474697,0
+                -1.780512,48.1476719,0
+                -1.7804798,48.147969,0
+                -1.78074,48.1482678,0
+                -1.7811048,48.1482965,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>2 CD Pacé 4B
+</name>
+        <styleUrl>#poly-E6EE9C-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7794794,48.1510738,0
+                -1.7797691,48.1508269,0
+                -1.779635,48.1507124,0
+                -1.7797369,48.1505692,0
+                -1.7794579,48.150333,0
+                -1.7791441,48.1504779,0
+                -1.7789537,48.1503902,0
+                -1.7786479,48.1505906,0
+                -1.7788089,48.1507177,0
+                -1.778605,48.1508233,0
+                -1.7789376,48.1510917,0
+                -1.7792326,48.1510344,0
+                -1.7794794,48.1510738,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>3 CD Pacé 4B
+</name>
+        <styleUrl>#poly-C5E1A5-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7748499,48.1516894,0
+                -1.7749679,48.1516286,0
+                -1.7749465,48.1513959,0
+                -1.7746246,48.1511526,0
+                -1.7743134,48.1511633,0
+                -1.7741847,48.1513208,0
+                -1.7741579,48.1515999,0
+                -1.7744261,48.1517538,0
+                -1.7748499,48.1516894,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>4 CD Pacé 4B
+</name>
+        <styleUrl>#poly-87CEAC-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7708373,48.1506677,0
+                -1.7709004,48.1506229,0
+                -1.7709661,48.1506229,0
+                -1.7710868,48.1504547,0
+                -1.7710572,48.150299,0
+                -1.7708561,48.1502113,0
+                -1.7706361,48.1502274,0
+                -1.7704806,48.1504439,0
+                -1.7706067,48.1505289,0
+                -1.7705718,48.150605,0
+                -1.7708373,48.1506677,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>5 CD Pacé 3B
+</name>
+        <styleUrl>#poly-C5E1A5-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7658269,48.1482607,0
+                -1.7659503,48.1481515,0
+                -1.7659262,48.1480083,0
+                -1.7654434,48.1480549,0
+                -1.7654756,48.148198,0
+                -1.7656285,48.1482696,0
+                -1.7658269,48.1482607,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>6a CD Pacé 3B
+</name>
+        <styleUrl>#poly-87CEAC-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7635256,48.1484182,0
+                -1.7634746,48.1482016,0
+                -1.7633057,48.1481282,0
+                -1.7630321,48.1481426,0
+                -1.7629543,48.1482589,0
+                -1.7630804,48.1484826,0
+                -1.7635256,48.1484182,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>6b CD Pacé 3B
+</name>
+        <styleUrl>#poly-C5E1A5-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7630804,48.1484853,0
+                -1.7629543,48.1482616,0
+                -1.7626405,48.1482902,0
+                -1.7624071,48.1483189,0
+                -1.7624393,48.1484674,0
+                -1.7625386,48.1485837,0
+                -1.7627183,48.1486839,0
+                -1.7630804,48.1484853,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>7 CD Pacé 4B
+</name>
+        <styleUrl>#poly-E6EE9C-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7577133,48.148887,0
+                -1.7579144,48.1488047,0
+                -1.7582095,48.1488298,0
+                -1.7582846,48.1486526,0
+                -1.757952,48.148547,0
+                -1.7580888,48.1484092,0
+                -1.7579842,48.1481336,0
+                -1.7577213,48.1481837,0
+                -1.7577857,48.1482965,0
+                -1.7576623,48.1484396,0
+                -1.757504,48.1484092,0
+                -1.7573646,48.1486132,0
+                -1.7574531,48.1488029,0
+                -1.7577133,48.148887,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>8 CD Pacé 3B
+</name>
+        <styleUrl>#poly-87CEAC-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7695525,48.1475448,0
+                -1.7698127,48.1473891,0
+                -1.7697886,48.1471959,0
+                -1.7695954,48.1470527,0
+                -1.769059,48.1473945,0
+                -1.7692763,48.1475878,0
+                -1.7695525,48.1475448,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>9 CD Pacé 4B
+</name>
+        <styleUrl>#poly-87CEAC-1200-77-nodesc</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                -1.7704645,48.1465426,0
+                -1.7706066,48.1464335,0
+                -1.7707622,48.1461364,0
+                -1.7702714,48.1460022,0
+                -1.7701319,48.1462688,0
+                -1.7701694,48.1464585,0
+                -1.7704645,48.1465426,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>1 O/D Pacé
+</name>
+        <styleUrl>#icon-1899-9C27B0-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7761212,48.149134,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>2 O/D Pacé
+</name>
+        <styleUrl>#icon-1899-9C27B0-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7770171,48.1477954,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>3 O/D Pacé</name>
+        <styleUrl>#icon-1899-817717-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7727712,48.1478222,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>4 O/D Pacé</name>
+        <styleUrl>#icon-1899-817717-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7730501,48.1474446,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>5 O/D Pacé</name>
+        <styleUrl>#icon-1899-817717-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7717412,48.1489658,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>6 O/D Pacé</name>
+        <styleUrl>#icon-1899-558B2F-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7728999,48.1468201,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>7 O/D Pacé</name>
+        <styleUrl>#icon-1899-817717-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7705557,48.1460021,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>8 O/D Pacé</name>
+        <styleUrl>#icon-1899-558B2F-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7689598,48.1475251,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>9 O/D Pacé</name>
+        <styleUrl>#icon-1899-817717-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7696115,48.1485936,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>10 O/D Pacé
+</name>
+        <styleUrl>#icon-1899-558B2F-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7699817,48.1463333,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>11 O/D Pacé</name>
+        <styleUrl>#icon-1899-817717-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.772114,48.1485309,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>12a Origine Pacé</name>
+        <styleUrl>#icon-1899-7CB342-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.767974,48.1426303,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>12b Destination Pacé
+</name>
+        <styleUrl>#icon-1899-7CB342-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            -1.7715079,48.1392619,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>

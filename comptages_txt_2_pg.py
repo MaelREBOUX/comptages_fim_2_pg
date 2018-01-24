@@ -14,12 +14,17 @@
 import linecache
 import encodings
 import psycopg2
+#import xml.etree.ElementTree as ET
+from lxml import etree
+import pprint
+
 
 # ATTENTION : fichier encodé en UCS-2 little endian // UTF-16
 # passer le fichier en UTF-8 pour le lire
-
 f_to_import = './fichiers_a_importer/test'
 
+# le fichier qui contient le code et nom de la station de comptage et ses coordonnées
+kml_stations = './fichiers_a_importer/stations.kml'
 
 # la base de données
 strConnDB = "host='localhost' dbname='bdu' user='geocarto' password='geocarto'"
@@ -37,7 +42,7 @@ campagne_heure_deb = ""
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def lectureMetadonnees():
+def lectureMetadonneesFIM():
 
   # on déclare ces variables comme globales
   global station_code
@@ -64,10 +69,79 @@ def lectureMetadonnees():
   print ""
 
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+def lectureKMLStations():
+
+  # /kml/Document/Folder/name  = 'Betton'
+  # /kml/Document/Folder/Placemark/name  =  '1 CR  Becherel'
+  # /kml/Document/Folder/Placemark/Point/coordinates
+
+
+##  <ns0:kml xmlns:ns0="http://www.opengis.net/kml/2.2">
+##  <ns0:Document>
+##    <ns0:name>Campagne Comptage Octobre 2017</ns0:name>
+##    <ns0:description />
+##    <ns0:Folder>
+##      <ns0:name>Mordelles</ns0:name>
+##      <ns0:Placemark>
+##        <ns0:name>1 CR Mordelles
+##</ns0:name>
+##        <ns0:styleUrl>#icon-1899-4E342E-nodesc</ns0:styleUrl>
+##        <ns0:Point>
+##          <ns0:coordinates>
+##            -1.8326381,48.0751041,0
+##          </ns0:coordinates>
+##        </ns0:Point>
+##      </ns0:Placemark>
+
+  # ------------------------------------------------
+  # essai 1
+
+  # le namespace du KML fourni
+  ns = {'kml': 'http://www.opengis.net/kml/2.2'}
+
+  tree = etree.parse(kml_stations)
+  root = tree.getroot()
+  #print (ET.tostring(root))
+
+  document = root[0]
+
+
+  #children = list(document)
+  #for child in children:
+  #  print(child.tag)
+
+  # sans namespace
+  #placemarks = root.findall('.//{http://www.opengis.net/kml/2.2}Folder')
+  # avec namespace
+  placemarks = root.findall('.//kml:Placemark', ns)
+
+  print placemarks
+  print placemarks[0].tag[0]
+
+  for place in placemarks:
+    place.findall('.//kml:name', ns)
+    print place.tag  # on obtient {http://www.opengis.net/kml/2.2}Placemark
+
+
+  pass
+
+  # ------------------------------------------------
+  # essai 2
+
+  xmlns="http://www.opengis.net/kml/2.2"
+
+  result=tree.xpath('//Placemark/name/text()')
+
+  for child in result:
+    print child.tag
+
+  #result = document.xpath('//Folder/Placemark/name/text()')
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def lectureDonnees():
+def lectureDonneesFIM():
 
   print u"Les données de comptage"
 
@@ -336,9 +410,6 @@ def insertEnqueteInDB ():
       print "Impossible de se connecter à la base de données"
 
 
-
-
-
   cursor.close()
   conn.close()
 
@@ -349,12 +420,14 @@ def main():
 
   print "++++++++ debut "
 
-  insertEnqueteInDB()
+  #insertEnqueteInDB()
 
 
-  #lectureMetadonnees()
+  #lectureMetadonneesFIM()
 
-  #lectureDonnees()
+  lectureKMLStations()
+
+  #lectureDonneesFIM()
 
   print "++++++++ fin "
 
@@ -365,4 +438,6 @@ if __name__ == '__main__':
 
 
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+# https://fastkml.readthedocs.io/en/latest/
