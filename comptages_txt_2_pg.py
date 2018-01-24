@@ -115,10 +115,19 @@ def lectureKMLStations():
 
     # et on boucle
     for iPlacemark in range(iMaxPlacemark):
+      # on récupère le nom de la station
       station_name = root.Document.Folder[iFolder].Placemark[iPlacemark].name
       station_name = u'' + station_name
       station_name = station_name.replace('\n','')
-      print "  Placemark " + str(iPlacemark) + " : " +  station_name
+
+      # puis les coordonnées
+      station_coord = root.Document.Folder[iFolder].Placemark[iPlacemark].Point.coordinates
+      station_coord = u'' + station_coord
+      station_coord = station_coord.replace(' ','')
+      station_coord = station_coord.replace('\n','')
+
+
+      print "  Placemark " + str(iPlacemark) + " : " +  station_name + " / " + station_coord
 
     iFolder = iFolder + 1
 
