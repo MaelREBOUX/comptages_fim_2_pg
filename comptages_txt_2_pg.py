@@ -116,12 +116,32 @@ def lectureKMLStations():
     print "Folder " + str(iFolder) + " : " +  root.Document.Folder[iFolder].name
 
     # 2e boucle sur les placemark
+    # on cherche le nb de Placemark dans un Folder
+    iPlacemark = len(Folder[iFolder].Placemark)
+
+    # et on boucle
+    for i in range(iPlacemark):
+      print( i )
+
+    return
+
     try:
       for Placemark in Folder:
-        print "  Placemark " + str(iPlacemark) + " : " +  root.Document.Folder[iFolder].Placemark[iPlacemark].name
+        station_name = root.Document.Folder[iFolder].Placemark[iPlacemark].name
+        station_name2 = str(station_name).replace('\n','')
+
+        print "  Placemark " + str(iPlacemark) + " : " +  station_name2
         iPlacemark = iPlacemark + 1
-    except:
-      #print "   fin boucle Placemark"
+
+    except NameError:
+      print("La variable numerateur ou denominateur n'a pas été définie.")
+    except TypeError:
+      print("La variable numerateur ou denominateur possède un type incompatible avec la division.")
+    except ZeroDivisionError:
+      print("La variable denominateur est égale à 0.")
+    else:
+      print("Le résultat obtenu est", resultat)
+    finally:
       iPlacemark = 0
 
     iFolder = iFolder + 1
