@@ -116,7 +116,8 @@ def lectureKMLStations():
     # et on boucle
     for iPlacemark in range(iMaxPlacemark):
       station_name = root.Document.Folder[iFolder].Placemark[iPlacemark].name
-      #station_name = str(station_name).replace('\n','')
+      station_name = u'' + station_name
+      station_name = station_name.replace('\n','')
       print "  Placemark " + str(iPlacemark) + " : " +  station_name
 
     iFolder = iFolder + 1
