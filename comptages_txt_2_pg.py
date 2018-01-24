@@ -16,6 +16,7 @@ import encodings
 import psycopg2
 #import xml.etree.ElementTree as ET
 from lxml import etree
+from pykml import parser
 import pprint
 
 
@@ -95,6 +96,38 @@ def lectureKMLStations():
 ##        </ns0:Point>
 ##      </ns0:Placemark>
 
+
+  # ------------------------------------------------
+  # essai 3  pyKml
+
+  print "pykml"
+
+  root = parser.fromstring(open(kml_stations, 'r').read())
+
+  #print root.Document.Folder.Placemark.Point.coordinates  #  renvoie    -1.6471728,48.1627498,0
+  #print root.Document.Folder.Placemark[0].name  #  renvoie    1 CR Mesures de vitesse Betton
+  #print root.Document.Folder.Placemark[1].name  #  renvoie    2 CR Mesures e Vitesse Betton
+
+  iFolder = 0
+  iPlacemark = 0
+
+  # une première boucle sur les Folder
+  for Folder in root.Document.Folder:
+    print "Folder " + str(iFolder) + " : " +  root.Document.Folder[iFolder].name
+
+    # 2e boucle sur les placemark
+    try:
+      for Placemark in Folder:
+        print "  Placemark " + str(iPlacemark) + " : " +  root.Document.Folder[iFolder].Placemark[iPlacemark].name
+        iPlacemark = iPlacemark + 1
+    except:
+      #print "   fin boucle Placemark"
+      iPlacemark = 0
+
+    iFolder = iFolder + 1
+
+  return
+
   # ------------------------------------------------
   # essai 1
 
@@ -125,7 +158,7 @@ def lectureKMLStations():
     print place.tag  # on obtient {http://www.opengis.net/kml/2.2}Placemark
 
 
-  pass
+  return
 
   # ------------------------------------------------
   # essai 2
