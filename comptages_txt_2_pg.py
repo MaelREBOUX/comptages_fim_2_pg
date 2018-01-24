@@ -121,13 +121,19 @@ def lectureKMLStations():
       station_name = station_name.replace('\n','')
 
       # puis les coordonnées
-      station_coord = root.Document.Folder[iFolder].Placemark[iPlacemark].Point.coordinates
-      station_coord = u'' + station_coord
-      station_coord = station_coord.replace(' ','')
-      station_coord = station_coord.replace('\n','')
+      try :
+        station_coord = root.Document.Folder[iFolder].Placemark[iPlacemark].Point.coordinates
+        station_coord = u'' + station_coord
+        station_coord = station_coord.replace(' ','')
+        station_coord = station_coord.replace('\n','')
 
 
-      print "  Placemark " + str(iPlacemark) + " : " +  station_name + " / " + station_coord
+        print "  Placemark " + str(iPlacemark) + " : " +  station_name + " / " + station_coord
+
+      except:
+        # si le KML ne contient pas que des géométries de type point
+        # on capte l'erreur et on passe à la suite
+        pass
 
     iFolder = iFolder + 1
 
