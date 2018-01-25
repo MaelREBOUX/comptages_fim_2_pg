@@ -28,11 +28,15 @@ f_to_import = './fichiers_a_importer/test'
 # le fichier qui contient le code et nom de la station de comptage et ses coordonnées
 f_kml_stations = './fichiers_a_importer/stations.kml'
 
+# le fichier de correspondance
+f_corres_stations = './fichiers_a_importer/stations_correspondances.txt'
+
 # la base de données
 strConnDB = "host='localhost' dbname='bdu' user='geocarto' password='geocarto'"
 
 
 # variables globales
+mode_verbeux = False
 enquete_id = 0
 station_id = 0
 station_code = ""
@@ -74,6 +78,11 @@ def lectureMetadonneesFIM():
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 def lectureKMLStations():
+
+  print ""
+  print "Lecture du fichier KML des stations"
+  print u"Les noms et coordonnées des stations seront récupérées et mise dans le fichier " + f_corres_stations
+  print ""
 
   # /kml/Document/Folder/name  = 'Betton'
   # /kml/Document/Folder/Placemark/name  =  '1 CR  Becherel'
@@ -134,7 +143,8 @@ def lectureKMLStations():
         station_coord = station_coord[:-2]
 
 
-        print "  Placemark " + str(iPlacemark) + " : " +  station_name + " / " + station_coord
+        if mode_verbeux == True:
+          print "  Placemark " + str(iPlacemark) + " : " +  station_name + " / " + station_coord
 
       except:
         # si le KML ne contient pas que des géométries de type point
@@ -460,6 +470,8 @@ if __name__ == '__main__':
   Il vous faudra ensuite saisir manuellement les correspondances entre les noms des stations et leurs codes.
   Ces codes sont dans les en-têtes des fichiers FIM à importer.""")
 
+  parser.add_argument("-v", help="mode verbeux")
+
 
   #print 'Number of arguments:', len(sys.argv), 'arguments.'
   #print 'Argument List:', str(sys.argv)
@@ -470,7 +482,15 @@ if __name__ == '__main__':
   try:
     # la commande est le premier argument
     commande = sys.argv[1]
-    print commande
+    #print commande
+
+    # mode verbeux ?
+    #global mode_verbeux
+    try:
+      if sys.argv[2] == '-v': mode_verbeux = True
+    except:
+      mode_verbeux = False
+
   except:
     # si pb : on montre l'aide
     parser.print_help()
