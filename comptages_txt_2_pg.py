@@ -1,4 +1,4 @@
-﻿# coding: utf8
+# coding: utf8
 #-------------------------------------------------------------------------------
 # Name:        module1
 # Purpose:
@@ -14,8 +14,11 @@
 import linecache
 import encodings
 import psycopg2
-from pykml import parser
+from pykml import parser as kmlParser
 import pprint
+import argparse
+from argparse import RawTextHelpFormatter
+import sys
 
 
 # ATTENTION : fichier encodé en UCS-2 little endian // UTF-16
@@ -23,7 +26,7 @@ import pprint
 f_to_import = './fichiers_a_importer/test'
 
 # le fichier qui contient le code et nom de la station de comptage et ses coordonnées
-kml_stations = './fichiers_a_importer/stations.kml'
+f_kml_stations = './fichiers_a_importer/stations.kml'
 
 # la base de données
 strConnDB = "host='localhost' dbname='bdu' user='geocarto' password='geocarto'"
@@ -96,7 +99,8 @@ def lectureKMLStations():
 
 
   # on lit le fichier
-  root = parser.fromstring(open(kml_stations, 'r').read())
+  print "f_kml_stations = " + f_kml_stations
+  root = kmlParser.fromstring(open(f_kml_stations, 'r').read())
 
   #print root.Document.Folder.Placemark.Point.coordinates  #  renvoie    -1.6471728,48.1627498,0
   #print root.Document.Folder.Placemark[0].name  #  renvoie    1 CR Mesures de vitesse Betton
@@ -126,6 +130,8 @@ def lectureKMLStations():
         station_coord = u'' + station_coord
         station_coord = station_coord.replace(' ','')
         station_coord = station_coord.replace('\n','')
+        # on enlève la dernière coordonnée
+        station_coord = station_coord[:-2]
 
 
         print "  Placemark " + str(iPlacemark) + " : " +  station_name + " / " + station_coord
@@ -435,8 +441,49 @@ def main():
 
   pass
 
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 if __name__ == '__main__':
-  main()
+
+  #
+  #parser = argparse.ArgumentParser()
+
+  parser = argparse.ArgumentParser(description="""Ce script permet de lire des données de comptages routiers et de les importer dans une base de données.
+  étape 1 : lire le KML des stations et créer un fichier de correspondance nom <> code de station
+  étape 2 : compléter manuellement le fichier de correspondance
+  étape 3 : créer une equête (si besoin) et récupérer l'ID d'enquête
+  étape 4 : lire un fichier de comptage (la sation sera créée si nécessaire)""", formatter_class=RawTextHelpFormatter)
+
+  # lecture_kml_stations
+  parser.add_argument("lecture_kml_stations", help="""Va lire le fichier stations.kml dans le répertoire d'importation et créer un fichier 'stations_correspondances.txt'.
+  Il vous faudra ensuite saisir manuellement les correspondances entre les noms des stations et leurs codes.
+  Ces codes sont dans les en-têtes des fichiers FIM à importer.""")
+
+
+  #print 'Number of arguments:', len(sys.argv), 'arguments.'
+  #print 'Argument List:', str(sys.argv)
+
+  # on récupère les arguments passés
+  #args = parser.parse_args(sys.argv[1:])
+
+  try:
+    # la commande est le premier argument
+    commande = sys.argv[1]
+    print commande
+  except:
+    # si pb : on montre l'aide
+    parser.print_help()
+
+  if commande == '-h':
+    parser.print_help()
+
+  elif commande == 'lecture_kml_stations':
+    lectureKMLStations()
+
+
+
+  #main()
 
 
 
