@@ -46,34 +46,6 @@ campagne_heure_deb = ""
 
 
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-def lectureMetadonneesFIM():
-
-  # on déclare ces variables comme globales
-  global station_code
-  global station_sens
-  global campagne_date_deb
-  global campagne_heure_deb
-
-
-  # on lit la première ligne pour récupéer les métadonnées
-  L_metadata = linecache.getline(f_to_import,1)
-  # on splitte
-  metadata = L_metadata.split('.')
-
-  # on met en mémoire
-  # code de la station de comptage
-  station_code = metadata[2]
-  station_sens = metadata[4].strip()
-  campagne_date_deb = '20' + metadata[5].strip() +'-'+ metadata[6].strip() +'-'+ metadata[7].strip()
-  campagne_heure_deb = metadata[8].strip()   # '  09' -> '09'
-  campagne_heure_deb_jolie = metadata[8].strip() + ':' + metadata[9].strip() + ':00'
-
-  print " Infos sur la station"
-  print "   " + station_code + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie
-  print ""
-
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -154,6 +126,35 @@ def lectureKMLStations():
     iFolder = iFolder + 1
 
   return
+
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+def lectureMetadonneesFIM():
+
+  # on déclare ces variables comme globales
+  global station_code
+  global station_sens
+  global campagne_date_deb
+  global campagne_heure_deb
+
+
+  # on lit la première ligne pour récupéer les métadonnées
+  L_metadata = linecache.getline(f_to_import,1)
+  # on splitte
+  metadata = L_metadata.split('.')
+
+  # on met en mémoire
+  # code de la station de comptage
+  station_code = metadata[2]
+  station_sens = metadata[4].strip()
+  campagne_date_deb = '20' + metadata[5].strip() +'-'+ metadata[6].strip() +'-'+ metadata[7].strip()
+  campagne_heure_deb = metadata[8].strip()   # '  09' -> '09'
+  campagne_heure_deb_jolie = metadata[8].strip() + ':' + metadata[9].strip() + ':00'
+
+  print " Infos sur la station"
+  print "   " + station_code + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie
+  print ""
 
 
 
