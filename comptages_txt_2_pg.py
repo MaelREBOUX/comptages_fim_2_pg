@@ -19,6 +19,7 @@ import pprint
 import argparse
 from argparse import RawTextHelpFormatter
 import sys
+import os.path
 
 
 # ATTENTION : fichier encodé en UCS-2 little endian // UTF-16
@@ -89,6 +90,8 @@ def lectureKMLStations():
 
   iFolder = 0
   iPlacemark = 0
+  cpt = 0
+  textData = ""
 
   # une première boucle sur les Folder
   for Folder in root.Document.Folder:
@@ -114,6 +117,11 @@ def lectureKMLStations():
         # on enlève la dernière coordonnée
         station_coord = station_coord[:-2]
 
+        # on incrémente le compteur
+        cpt = cpt + 1
+
+        # on crée le contenu de la ligne à écrire
+        textData = textData + "?|?|" + station_name + "|" + station_coord + "\n"
 
         if mode_verbeux == True:
           print "  Placemark " + str(iPlacemark) + " : " +  station_name + " / " + station_coord
@@ -124,6 +132,32 @@ def lectureKMLStations():
         pass
 
     iFolder = iFolder + 1
+
+  # on termine en écrivant le fichier
+  #print textData
+  print ""
+
+  # test si le fichier existe
+  if os.path.exists(f_corres_stations):
+    # il existe -> on bloque et on alerte
+    print u"Le fichier " + f_corres_stations + u" existe déjà !"
+    print u"Veuillez vérifier le contenu de ce fichier."
+    print u"Arrêt du programme."
+    return
+  else:
+    # il n'existe pas -> on le crée
+    f_to_write = open(f_corres_stations,'w')
+    # on écrit de dedans
+    f_to_write.write(textData)
+    # on ferme
+    f_to_write.close
+
+    print str(cpt) + u" stations trouvées"
+    print ""
+    print u"Veuillez maintenant éditer à la main les corespondances ID / nom des stations"
+    print ""
+
+    return
 
   return
 
