@@ -121,10 +121,10 @@ def lectureKMLStations():
         cpt = cpt + 1
 
         # on crée le contenu de la ligne à écrire
-        textData = textData + "?|?|" + station_name + "|" + station_coord + "\n"
+        textData = u"" + textData + "?|?|" + station_name + "|" + station_coord + "\n"
 
         if mode_verbeux == True:
-          print "  Placemark " + str(iPlacemark) + " : " +  station_name + " / " + station_coord
+          print u"  Placemark " + str(iPlacemark) + " : " +  station_name + " / " + station_coord
 
       except:
         # si le KML ne contient pas que des géométries de type point
@@ -134,6 +134,7 @@ def lectureKMLStations():
     iFolder = iFolder + 1
 
   # on termine en écrivant le fichier
+  textData.encode('utf-8')
   #print textData
   print ""
 
