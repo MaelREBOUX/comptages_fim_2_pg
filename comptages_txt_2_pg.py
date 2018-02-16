@@ -14,7 +14,6 @@
 import linecache
 import encodings
 import psycopg2
-from pykml import parser as kmlParser
 import pprint
 import argparse
 from argparse import RawTextHelpFormatter
@@ -50,117 +49,13 @@ campagne_heure_deb = ""
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def lectureKMLStations():
+def lectureInfosStation():
 
   print("")
-  print("Lecture du fichier KML des stations")
-  print("Les noms et coordonnées des stations seront récupérées et mise dans le fichier " + f_corres_stations )
+  print("Lecture des infos des stations")
+  print("Les noms et coordonnées des stations seront récupérées depuis ???" )
   print("")
 
-  # /kml/Document/Folder/name  = 'Betton'
-  # /kml/Document/Folder/Placemark/name  =  '1 CR  Becherel'
-  # /kml/Document/Folder/Placemark/Point/coordinates =  '-1.6471728,48.1627498,0'
-
-
-##  <ns0:kml xmlns:ns0="http://www.opengis.net/kml/2.2">
-##  <ns0:Document>
-##    <ns0:name>Campagne Comptage Octobre 2017</ns0:name>
-##    <ns0:description />
-##    <ns0:Folder>
-##      <ns0:name>Mordelles</ns0:name>
-##      <ns0:Placemark>
-##        <ns0:name>1 CR Mordelles
-##</ns0:name>
-##        <ns0:styleUrl>#icon-1899-4E342E-nodesc</ns0:styleUrl>
-##        <ns0:Point>
-##          <ns0:coordinates>
-##            -1.8326381,48.0751041,0
-##          </ns0:coordinates>
-##        </ns0:Point>
-##      </ns0:Placemark>
-
-
-  # on lit le fichier
-  print( "f_kml_stations = " + f_kml_stations)
-  root = kmlParser.fromstring(open(f_kml_stations, 'r').read())
-
-  #print root.Document.Folder.Placemark.Point.coordinates  #  renvoie    -1.6471728,48.1627498,0
-  #print root.Document.Folder.Placemark[0].name  #  renvoie    1 CR Mesures de vitesse Betton
-  #print root.Document.Folder.Placemark[1].name  #  renvoie    2 CR Mesures e Vitesse Betton
-
-  iFolder = 0
-  iPlacemark = 0
-  cpt = 0
-  textData = ""
-
-  # une première boucle sur les Folder
-  for Folder in root.Document.Folder:
-    print( "Folder " + str(iFolder) + " : " +  root.Document.Folder[iFolder].name )
-
-    # 2e boucle sur les placemark
-    # on cherche le nb de Placemark dans un Folder
-    iMaxPlacemark = len(Folder[iFolder].Placemark)
-
-    # et on boucle
-    for iPlacemark in range(iMaxPlacemark):
-      # on récupère le nom de la station
-      station_name = root.Document.Folder[iFolder].Placemark[iPlacemark].name
-      station_name = u'' + station_name
-      station_name = station_name.replace('\n','')
-
-      # puis les coordonnées
-      try :
-        station_coord = root.Document.Folder[iFolder].Placemark[iPlacemark].Point.coordinates
-        station_coord = u'' + station_coord
-        station_coord = station_coord.replace(' ','')
-        station_coord = station_coord.replace('\n','')
-        # on enlève la dernière coordonnée
-        station_coord = station_coord[:-2]
-
-        # on incrémente le compteur
-        cpt = cpt + 1
-
-        # on crée le contenu de la ligne à écrire
-        textData = u"" + textData + "?|?|" + station_name + "|" + station_coord + "\n"
-
-        if mode_verbeux == True:
-          print( u"  Placemark " + str(iPlacemark) + " : " +  station_name + " / " + station_coord )
-
-      except:
-        # si le KML ne contient pas que des géométries de type point
-        # on capte l'erreur et on passe à la suite
-        pass
-
-    iFolder = iFolder + 1
-
-  # on termine en écrivant le fichier
-  textData.encode('utf-8')
-  #print textData
-  print( "" )
-
-  # test si le fichier existe
-  if os.path.exists(f_corres_stations):
-    # il existe -> on bloque et on alerte
-    print( u"Le fichier " + f_corres_stations + u" existe déjà !" )
-    print( u"Veuillez vérifier le contenu de ce fichier." )
-    print( u"Arrêt du programme." )
-    return
-  else:
-    # il n'existe pas -> on le crée
-    f_to_write = open(f_corres_stations,'w')
-    # on écrit de dedans
-    f_to_write.write(textData)
-    # on ferme
-    f_to_write.close
-
-    print( str(cpt) + u" stations trouvées" )
-    print( "" )
-    print( u"Veuillez maintenant éditer à la main les corespondances ID / nom des stations" )
-    print( "" )
-
-    return
-
-  return
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -479,7 +374,7 @@ def main():
 
   #lectureMetadonneesFIM()
 
-  lectureKMLStations()
+  #lectureInfosStation()
 
   #lectureDonneesFIM()
 
@@ -502,9 +397,7 @@ if __name__ == '__main__':
   étape 4 : lire un fichier de comptage (la sation sera créée si nécessaire)""", formatter_class=RawTextHelpFormatter)
 
   # lecture_kml_stations
-  parser.add_argument("lecture_kml_stations", help="""Va lire le fichier stations.kml dans le répertoire d'importation et créer un fichier 'stations_correspondances.txt'.
-  Il vous faudra ensuite saisir manuellement les correspondances entre les noms des stations et leurs codes.
-  Ces codes sont dans les en-têtes des fichiers FIM à importer.""")
+  parser.add_argument("lecture_stations", help="""Va lire les données sur les stations.""")
 
   parser.add_argument("-v", help="mode verbeux")
 
@@ -514,6 +407,7 @@ if __name__ == '__main__':
 
   # on récupère les arguments passés
   #args = parser.parse_args(sys.argv[1:])
+  commande = ""
 
   try:
     # la commande est le premier argument
@@ -534,8 +428,8 @@ if __name__ == '__main__':
   if commande == '-h':
     parser.print_help()
 
-  elif commande == 'lecture_kml_stations':
-    lectureKMLStations()
+  elif commande == 'lecture_stations':
+    lectureInfosStation()
 
 
 
