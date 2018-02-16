@@ -52,10 +52,10 @@ campagne_heure_deb = ""
 
 def lectureKMLStations():
 
-  print ""
-  print "Lecture du fichier KML des stations"
-  print u"Les noms et coordonnées des stations seront récupérées et mise dans le fichier " + f_corres_stations
-  print ""
+  print("")
+  print("Lecture du fichier KML des stations")
+  print("Les noms et coordonnées des stations seront récupérées et mise dans le fichier " + f_corres_stations )
+  print("")
 
   # /kml/Document/Folder/name  = 'Betton'
   # /kml/Document/Folder/Placemark/name  =  '1 CR  Becherel'
@@ -81,7 +81,7 @@ def lectureKMLStations():
 
 
   # on lit le fichier
-  print "f_kml_stations = " + f_kml_stations
+  print( "f_kml_stations = " + f_kml_stations)
   root = kmlParser.fromstring(open(f_kml_stations, 'r').read())
 
   #print root.Document.Folder.Placemark.Point.coordinates  #  renvoie    -1.6471728,48.1627498,0
@@ -95,7 +95,7 @@ def lectureKMLStations():
 
   # une première boucle sur les Folder
   for Folder in root.Document.Folder:
-    print "Folder " + str(iFolder) + " : " +  root.Document.Folder[iFolder].name
+    print( "Folder " + str(iFolder) + " : " +  root.Document.Folder[iFolder].name )
 
     # 2e boucle sur les placemark
     # on cherche le nb de Placemark dans un Folder
@@ -124,7 +124,7 @@ def lectureKMLStations():
         textData = u"" + textData + "?|?|" + station_name + "|" + station_coord + "\n"
 
         if mode_verbeux == True:
-          print u"  Placemark " + str(iPlacemark) + " : " +  station_name + " / " + station_coord
+          print( u"  Placemark " + str(iPlacemark) + " : " +  station_name + " / " + station_coord )
 
       except:
         # si le KML ne contient pas que des géométries de type point
@@ -136,14 +136,14 @@ def lectureKMLStations():
   # on termine en écrivant le fichier
   textData.encode('utf-8')
   #print textData
-  print ""
+  print( "" )
 
   # test si le fichier existe
   if os.path.exists(f_corres_stations):
     # il existe -> on bloque et on alerte
-    print u"Le fichier " + f_corres_stations + u" existe déjà !"
-    print u"Veuillez vérifier le contenu de ce fichier."
-    print u"Arrêt du programme."
+    print( u"Le fichier " + f_corres_stations + u" existe déjà !" )
+    print( u"Veuillez vérifier le contenu de ce fichier." )
+    print( u"Arrêt du programme." )
     return
   else:
     # il n'existe pas -> on le crée
@@ -153,10 +153,10 @@ def lectureKMLStations():
     # on ferme
     f_to_write.close
 
-    print str(cpt) + u" stations trouvées"
-    print ""
-    print u"Veuillez maintenant éditer à la main les corespondances ID / nom des stations"
-    print ""
+    print( str(cpt) + u" stations trouvées" )
+    print( "" )
+    print( u"Veuillez maintenant éditer à la main les corespondances ID / nom des stations" )
+    print( "" )
 
     return
 
@@ -187,9 +187,9 @@ def lectureMetadonneesFIM():
   campagne_heure_deb = metadata[8].strip()   # '  09' -> '09'
   campagne_heure_deb_jolie = metadata[8].strip() + ':' + metadata[9].strip() + ':00'
 
-  print " Infos sur la station"
-  print "   " + station_code + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie
-  print ""
+  print( " Infos sur la station" )
+  print( "   " + station_code + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie )
+  print( "" )
 
 
 
@@ -197,7 +197,7 @@ def lectureMetadonneesFIM():
 
 def lectureDonneesFIM():
 
-  print u"Les données de comptage"
+  print( u"Les données de comptage" )
 
   f = open(f_to_import,'r')
 
@@ -256,7 +256,7 @@ def lectureDonneesFIM():
       total_VL = total_TV - total_PL
 
       # sortie console
-      print "   [" + str(i) + ' ' + str(i_data) + '] | jour ' + str(j_courant).zfill(2) + ' heure ' + str(h_courante).zfill(2) + ' | ' + date_tmst + ' | ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )'
+      print( "   [" + str(i) + ' ' + str(i_data) + '] | jour ' + str(j_courant).zfill(2) + ' heure ' + str(h_courante).zfill(2) + ' | ' + date_tmst + ' | ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )' )
 
       # on peut incrémenter le compteur des valeurs de trafic
       i_data = i_data + 1
@@ -420,7 +420,7 @@ def insertEnqueteInDB ():
 
       # si diffèrent de 0 alors on insère pas
       if enquete_test > 0 :
-        print u"L'enquête existe déjà !"
+        print( u"L'enquête existe déjà !" )
 
         # TODO
         # récupérer l'ID de cette enquête
@@ -430,7 +430,7 @@ def insertEnqueteInDB ():
         pass
       else:
         # pas de doublon -> on peut insérer la nouvelle enquête
-        print u"Pas d'enquête pré-existante dans la base avec ces infos."
+        print( u"Pas d'enquête pré-existante dans la base avec ces infos." )
 
         try:
             # on insert la nouvelle enquête
@@ -449,19 +449,19 @@ def insertEnqueteInDB ():
             result = cursor.fetchone()
             enquete_id = result[0]
 
-            print u"Enquête n° " + str(enquete_id) +  u" créée"
+            print( u"Enquête n° " + str(enquete_id) +  u" créée" )
 
             # on retourne cette valeur
             return enquete_id
 
         except:
-            print u"Impossible d'exécuter la requête d'insertion d'une enquête"
+            print( u"Impossible d'exécuter la requête d'insertion d'une enquête" )
 
     except:
-      print u"Impossible d'exécuter la requête de contrôle de l'enquête"
+      print( u"Impossible d'exécuter la requête de contrôle de l'enquête" )
 
   except:
-      print "Impossible de se connecter à la base de données"
+      print( "Impossible de se connecter à la base de données" )
 
 
   cursor.close()
@@ -472,7 +472,7 @@ def insertEnqueteInDB ():
 
 def main():
 
-  print "++++++++ debut "
+  print( "++++++++ debut " )
 
   #insertEnqueteInDB()
 
@@ -483,7 +483,7 @@ def main():
 
   #lectureDonneesFIM()
 
-  print "++++++++ fin "
+  print( "++++++++ fin " )
 
   pass
 
