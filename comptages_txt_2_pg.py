@@ -13,6 +13,7 @@
 
 import linecache
 import encodings
+import codecs
 import psycopg2
 import pprint
 import argparse
@@ -396,11 +397,16 @@ if __name__ == '__main__':
   #
   #parser = argparse.ArgumentParser()
 
-  parser = argparse.ArgumentParser(description="""Ce script permet de lire des données de comptages routiers et de les importer dans une base de données.
-  étape 1 : lire le KML des stations et créer un fichier de correspondance nom <> code de station
-  étape 2 : compléter manuellement le fichier de correspondance
-  étape 3 : créer une equête (si besoin) et récupérer l'ID d'enquête
-  étape 4 : lire un fichier de comptage (la sation sera créée si nécessaire)""", formatter_class=RawTextHelpFormatter)
+  parser = argparse.ArgumentParser(description="""
+Ce script permet de lire des données de comptages routiers et de les importer dans une base de données.
+  étape 1 : lire les infos sur les stations depuis la couche qui localise les stations de comptage
+  étape 2 : créer une enquête (si besoin) et récupérer son identifiant
+  étape 3 : lire le fichier de comptage
+  étape 4 : écriture dans la base de données : la sation sera créée si nécessaire et les données de comptage insérées.
+
+Les fichiers à importer sont à placer dans le répertoire "fichiers_a_importer".
+
+""", formatter_class=RawTextHelpFormatter)
 
 
   # debug for coding
@@ -416,13 +422,21 @@ if __name__ == '__main__':
   parser.add_argument("-v", help="mode verbeux")
 
   # lecture des infos sur les stations
-  parser.add_argument("lecture_stations", help="""Va lire les données sur les stations.""")
+  parser.add_argument("-c", help="""Pour lancer une commande spécifique""")
 
+  # print help
+  #parser.print_help()
 
   # for debug
   #print 'Number of arguments:', len(sys.argv), 'arguments.'
   print( 'Argument List:', str(sys.argv))
 
+
+  # pour insérer une enquête
+  if ('-enquete' in sys.argv):
+    print( "Création d'une enquête" )
+    # on détermine la command demandée
+    pass
 
 
   print( "++++++++++++++++++++++++++++++++++++++++ " )
