@@ -382,27 +382,14 @@ def insertEnqueteInDB ():
   conn.close()
 
 
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-def main():
-
-  print( "++++++++ debut " )
-
-  #insertEnqueteInDB()
-
-
-  #lectureMetadonneesFIM()
-
-  #lectureInfosStation()
-
-  #lectureDonneesFIM()
-
-  print( "++++++++ fin " )
-
-  pass
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 
 if __name__ == '__main__':
 
@@ -417,55 +404,28 @@ if __name__ == '__main__':
 
 
   # debug for coding
-  lectureMetadonneesFIM()
-  lectureDonneesFIM()
+  #insertEnqueteInDB()
+  #lectureMetadonneesFIM()
+  #lectureDonneesFIM()
   #lectureInfosStation()
+  #sys.exit("arret dedug")
 
-  sys.exit("arret dedug")
+  print( "++++++++++++++++++++++++++++++++++++++++ " )
 
-
-
-  # lecture_kml_stations
-  parser.add_argument("lecture_stations", help="""Va lire les données sur les stations.""")
-
+  # mode verbeux
   parser.add_argument("-v", help="mode verbeux")
 
+  # lecture des infos sur les stations
+  parser.add_argument("lecture_stations", help="""Va lire les données sur les stations.""")
 
+
+  # for debug
   #print 'Number of arguments:', len(sys.argv), 'arguments.'
-  #print 'Argument List:', str(sys.argv)
-
-  # on récupère les arguments passés
-  #args = parser.parse_args(sys.argv[1:])
-  commande = ""
-
-  try:
-    # la commande est le premier argument
-    commande = sys.argv[1]
-    #print commande
-
-    # mode verbeux ?
-    #global mode_verbeux
-    try:
-      if sys.argv[2] == '-v': mode_verbeux = True
-    except:
-      mode_verbeux = False
-
-  except:
-    # si pb : on montre l'aide
-    #parser.print_help()
-
-    # en cours de dev : on passe à main
-    main()
-
-  if commande == '-h':
-    parser.print_help()
-
-  elif commande == 'lecture_stations':
-    lectureInfosStation()
+  print( 'Argument List:', str(sys.argv))
 
 
 
-  #main()
+  print( "++++++++++++++++++++++++++++++++++++++++ " )
 
 
 
