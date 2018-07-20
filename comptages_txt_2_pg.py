@@ -92,14 +92,15 @@ def lectureMetadonneesFIM():
 
   # on met en mémoire
   # code de la station de comptage
-  station_code = metadata[2]
+  station_commune = "35" + metadata[1].strip()
+  station_code = station_commune + "_" + metadata[2]
   station_sens = metadata[4].strip()
   campagne_date_deb = '20' + metadata[5].strip() +'-'+ metadata[6].strip() +'-'+ metadata[7].strip()
   campagne_heure_deb = metadata[8].strip()   # '  09' -> '09'
   campagne_heure_deb_jolie = metadata[8].strip() + ':' + metadata[9].strip() + ':00'
 
   print( " Infos sur la station" )
-  print( "   " + station_code + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie )
+  print( "   " + station_commune + ' | ' + station_code + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie )
   print( "" )
 
 
@@ -415,7 +416,8 @@ if __name__ == '__main__':
 
   # debug for coding
   lectureMetadonneesFIM()
-  lectureInfosStation()
+  lectureDonneesFIM()
+  #lectureInfosStation()
 
   sys.exit("arret dedug")
 
