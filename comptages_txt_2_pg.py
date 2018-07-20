@@ -19,14 +19,16 @@ import argparse
 from argparse import RawTextHelpFormatter
 import sys
 import os.path
+import geojson
 
 
 # ATTENTION : fichier encodé en UCS-2 little endian // UTF-16
 # passer le fichier en UTF-8 pour le lire
 f_to_import = './fichiers_a_importer/test'
 
-# le fichier qui contient le code et nom de la station de comptage et ses coordonnées
-f_kml_stations = './fichiers_a_importer/stations.kml'
+# url vers le GeoJSON en ligne dans uMap
+url_stations_geojson = "http://umap.openstreetmap.fr/fr/datalayer/497861/"
+f_geojson = './fichiers_a_importer/stations.geojson'
 
 # le fichier de correspondance
 f_corres_stations = './fichiers_a_importer/stations_correspondances.txt'
@@ -53,8 +55,22 @@ def lectureInfosStation():
 
   print("")
   print("Lecture des infos des stations")
-  print("Les noms et coordonnées des stations seront récupérées depuis ???" )
+  print("Les noms et coordonnées des stations seront récupérées depuis un flux GeoJSON" )
   print("")
+
+  geojson_content = open(f_geojson,'r').read()
+  #print(geojson_content)
+
+  stations = geojson.loads(geojson_content)
+  print(stations)
+
+  # ça ça marche
+  #print( stations[0].properties['identifiant']  )
+
+  # il faut boucler
+  #for station in stations:
+  #  print( station[0].properties['identifiant'] )
+
 
 
 
@@ -396,6 +412,15 @@ if __name__ == '__main__':
   étape 3 : créer une equête (si besoin) et récupérer l'ID d'enquête
   étape 4 : lire un fichier de comptage (la sation sera créée si nécessaire)""", formatter_class=RawTextHelpFormatter)
 
+
+  # debug for coding
+  lectureMetadonneesFIM()
+  lectureInfosStation()
+
+  sys.exit("arret dedug")
+
+
+
   # lecture_kml_stations
   parser.add_argument("lecture_stations", help="""Va lire les données sur les stations.""")
 
@@ -423,7 +448,10 @@ if __name__ == '__main__':
 
   except:
     # si pb : on montre l'aide
-    parser.print_help()
+    #parser.print_help()
+
+    # en cours de dev : on passe à main
+    main()
 
   if commande == '-h':
     parser.print_help()
