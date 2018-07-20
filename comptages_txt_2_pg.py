@@ -40,6 +40,7 @@ strConnDB = "host='localhost' dbname='bdu' user='geocarto' password='geocarto'"
 # variables globales
 mode_verbeux = False
 enquete_id = 0
+station_commune = 0
 station_id = 0
 station_code = ""
 station_sens = ""
@@ -79,6 +80,7 @@ def lectureInfosStation():
 def lectureMetadonneesFIM():
 
   # on déclare ces variables comme globales
+  global station_commune
   global station_code
   global station_sens
   global campagne_date_deb
