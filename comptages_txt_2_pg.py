@@ -40,15 +40,22 @@ strConnDB = "host='localhost' dbname='bdu' user='geocarto' password='geocarto'"
 
 # variables globales
 mode_verbeux = False
-enquete_id = 0
-station_commune = 0
-station_id = 0
-station_code = ""
-station_sens = ""
-campagne_date_deb = ""
-campagne_heure_deb = ""
 
+enquete_id          = 0
+enquete_comm_insee  = ""
+enquete_description = ""
+enquete_site        = ""
+enquete_datedeb     = ""
 
+station_commune     = 0
+station_id          = 0
+station_code        = ""
+station_sens        = ""
+campagne_date_deb   = ""
+campagne_heure_deb  = ""
+
+# pour avoir une sortie console en UTF-8
+utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -394,8 +401,6 @@ def insertEnqueteInDB ():
 
 if __name__ == '__main__':
 
-  #
-  #parser = argparse.ArgumentParser()
 
   parser = argparse.ArgumentParser(description="""
 Ce script permet de lire des données de comptages routiers et de les importer dans une base de données.
@@ -429,13 +434,21 @@ Les fichiers à importer sont à placer dans le répertoire "fichiers_a_importer
 
   # for debug
   #print 'Number of arguments:', len(sys.argv), 'arguments.'
-  print( 'Argument List:', str(sys.argv))
+  #print( 'Argument List:', str(sys.argv))
 
 
   # pour insérer une enquête
   if ('-enquete' in sys.argv):
-    print( "Création d'une enquête" )
-    # on détermine la command demandée
+    print( "Création d'une enquête", file=utf8stdout )
+
+    # on demande les infos sur l'enquête
+    enquete_comm_insee  = input("code INSEE de la commune : ")
+    enquete_site        = input("site : ")
+    enquete_datedeb     = input("date et heure de début au format 2017-10-09 01:00:00 : " )
+
+    # pas de test : on fait confiance
+    insertEnqueteInDB()
+
     pass
 
 
