@@ -388,8 +388,8 @@ if __name__ == '__main__':
 
   parser = argparse.ArgumentParser(description="""
 Ce script permet de lire des données de comptages routiers et de les importer dans une base de données.
-  étape 1 : lire les infos sur les stations depuis la couche qui localise les stations de comptage
-  étape 2 : créer une enquête (si besoin) et récupérer son identifiant
+  étape 1 : créer une enquête (si besoin)
+  étape 2 : lire les infos sur les stations depuis la couche qui localise les stations de comptage
   étape 3 : lire le fichier de comptage
   étape 4 : écriture dans la base de données : la sation sera créée si nécessaire et les données de comptage insérées.
 
