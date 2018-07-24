@@ -39,7 +39,7 @@ strConnDB = "host='localhost' dbname='bdu' user='geocarto' password='geocarto'"
 
 
 # variables globales
-mode_verbeux = False
+mode_debug = False
 
 enquete_id          = 0
 enquete_comm_insee  = ""
@@ -61,12 +61,24 @@ def Logguer(logString):
 
   # cette fonction permet de sortir correctement les print() en mode dev (console python) et terminal
 
-  # sortie console en UTF-8
-  utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
-  print( logString, file=utf8stdout)
+  if (mode_debug == False):
+    # sortie console en UTF-8
+    utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
+    print( logString, file=utf8stdout)
+  else:
+    # sortie dans la console python
+    print( logString )
 
-  # sortie dans la console python
-  print( logString )
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+def TraiterDonneesFIM():
+
+  Logguer("")
+  Logguer("Lecture et import des données de comptage routier")
+  Logguer("Les noms et coordonnées des stations seront récupérées depuis un flux GeoJSON" )
+  Logguer("Les données de comptage seront récupérées depuis les fichiers FIM" )
+  Logguer("")
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -400,44 +412,71 @@ Ce script permet de lire des données de comptages routiers et de les importer d
   étape 1 : créer une enquête (si besoin)
   étape 2 : lire les infos sur les stations depuis la couche qui localise les stations de comptage
   étape 3 : lire le fichier de comptage
-  étape 4 : écriture dans la base de données : la sation sera créée si nécessaire et les données de comptage insérées.
+  étape 4 : écriture dans la base de données : la station sera créée si nécessaire et les données de comptage insérées.
 
 Les fichiers à importer sont à placer dans le répertoire "fichiers_a_importer".
+
+Scénario classique :
+  1. insérer une enquête ->  comptages_txt_2_pg.py -enquete
+  2. insérer les données de comptage ->  comptages_txt_2_pg.py -donnees_fim x  où x = id d'enquête
 
 """, formatter_class=RawTextHelpFormatter)
 
 
+  parser.add_argument("-enquete", help="""Pour créer des enquêtes dans la base de données. Va lire le fichier _enquete_a_creer.csv""")
+
+  parser.add_argument("-donnees_fim", help="""Va lire les fichier au format FIM dans le répertoire "fichiers_a_importer". Les stations de comptage seront créées si nécessaire.""")
+
+
+  #Logguer( "++++++++++++++++++++++++++++++++++++++++ " )
+
   # debug for coding
-  insertEnqueteInDB()
+  #insertEnqueteInDB()
   #lectureMetadonneesFIM()
   #lectureDonneesFIM()
   #lectureInfosStation()
-  sys.exit("arret dedug")
-
-  Logguer( "++++++++++++++++++++++++++++++++++++++++ " )
-
-  # mode verbeux
-  parser.add_argument("-v", help="mode verbeux")
-
-  # lecture des infos sur les stations
-  parser.add_argument("-c", help="""Pour lancer une commande spécifique""")
-
-  # print help
-  #parser.print_help()
+  #sys.exit("arret dedug")
 
   # for debug
-  #print 'Number of arguments:', len(sys.argv), 'arguments.'
-  #Logguer( 'Argument List:', str(sys.argv))
+  #print( 'Number of arguments:', len(sys.argv), 'arguments.' )
+  #print( 'Argument List:', str(sys.argv) )
 
+  testIdEnquete = 2
+
+  # mode debug optionnel pur sortie console
+  if ('-debug' in sys.argv):
+    mode_debug = True
+    testIdEnquete = 3
+    pass
 
   # pour insérer une enquête
   if ('-enquete' in sys.argv):
     # on passe directemnt à la fonction
     insertEnqueteInDB()
-    pass
+    # et on arrête car elle ne doit faire que ça
+    sys.exit()
 
+  # pour traiter les fichiers FIM
+  if ('-donnees_fim' in sys.argv):
+    # on verifie qu'un id d'enquête a bien été passé
+    if ( len(sys.argv) == testIdEnquete +1 ):
+      # on vérifie maintenant que c'est numérique
+      if str(sys.argv[testIdEnquete]).isnumeric() :
+        # tout est ok : on appelle la fonction
+          TraiterDonneesFIM()
+          # et on arrête car cette fonction ne doit faire que ça
+          sys.exit()
+      else:
+        Logguer("erreur : l'identifiant d'enquête n'est pas numérique")
+        sys.exit()
+    else:
+      Logguer("erreur : il manque l'identifiant de l'enquête")
+      sys.exit()
 
-  Logguer( "++++++++++++++++++++++++++++++++++++++++ " )
+  # si on est là c'est que aucune commande n'a été demandée -> on affiche l'aide
+  Logguer(parser.print_help())
+
+  #Logguer( "++++++++++++++++++++++++++++++++++++++++ " )
 
 
 
