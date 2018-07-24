@@ -1,5 +1,5 @@
 ﻿
--- 23/01/2018 Maël REBOUX
+-- 23/07/2018 Maël REBOUX
 -- SIG Rennes Métropole
 
 
@@ -9,21 +9,23 @@ CREATE TABLE mobilite_transp.comptage_enquete
   enquete_uid serial NOT NULL, -- identifiant interne
   comm_insee varchar(5) NOT NULL,
   description text NOT NULL,
-  site text,
   date_deb timestamp without time zone,
   date_fin timestamp without time zone,
   moa text, -- maîtrise d'ouvrage
   moe text, -- maîtrise d'œuvre
-  d_occupation varchar(3),
-  d_rotation varchar(3),
-  d_routier varchar(3),
-  d_vitesse varchar(3),
+  d_occupation varchar(3) NOT NULL,
+  d_rotation varchar(3) NOT NULL,
+  d_routier varchar(3) NOT NULL,
+  d_vitesse varchar(3) NOT NULL,
   -- pk
-  CONSTRAINT mobilite_transp_comptage_enquete_pkey PRIMARY KEY (enquete_uid)
+  CONSTRAINT mobilite_transp_comptage_enquete_pkey PRIMARY KEY (enquete_uid),
+  -- indexes
+  CONSTRAINT mobilite_transp_comptage_enquete_uid UNIQUE (comm_insee, description, date_deb, d_occupation, d_rotation, d_routier, d_vitesse)
 )
 WITH (
   OIDS=FALSE
 );
+ALTER TABLE mobilite_transp.comptage_enquete OWNER TO mobilite_transp;
 
 -- indexes
 
@@ -56,6 +58,7 @@ CREATE TABLE mobilite_transp.comptage_station
 WITH (
   OIDS=FALSE
 );
+ALTER TABLE mobilite_transp.comptage_station OWNER TO mobilite_transp;
 
 -- indexes
 
@@ -84,6 +87,7 @@ CREATE TABLE mobilite_transp.comptage_automatique
 WITH (
   OIDS=FALSE
 );
+ALTER TABLE mobilite_transp.comptage_automatique OWNER TO mobilite_transp;
 
 -- indexes
 
@@ -101,15 +105,15 @@ CREATE TABLE mobilite_transp.comptage_dom_station_sens
 WITH (
   OIDS=FALSE
 );
-GRANT SELECT ON TABLE mobilite_transp.comptage_dom_station_sens TO consult;
+ALTER TABLE mobilite_transp.comptage_dom_station_sens OWNER TO mobilite_transp;
 
 INSERT INTO mobilite_transp.comptage_dom_station_sens VALUES (1,'dans le sens 1');
 INSERT INTO mobilite_transp.comptage_dom_station_sens VALUES (1,'dans le sens 2');
-INSERT INTO mobilite_transp.comptage_dom_station_sens VALUES (3,'dans les 2sens');
+INSERT INTO mobilite_transp.comptage_dom_station_sens VALUES (3,'dans les 2 sens');
 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
--- DROP TABLE mobilite_transp.comptage_dom_station_type
+-- DROP TABLE mobilite_transp.comptage_dom_station_type ;
 CREATE TABLE mobilite_transp.comptage_dom_station_type
 (
   type_id integer,
@@ -118,7 +122,7 @@ CREATE TABLE mobilite_transp.comptage_dom_station_type
 WITH (
   OIDS=FALSE
 );
-GRANT SELECT ON TABLE mobilite_transp.comptage_dom_station_type TO consult;
+ALTER TABLE mobilite_transp.comptage_dom_station_type OWNER TO mobilite_transp;
 
 INSERT INTO mobilite_transp.comptage_dom_station_type VALUES (1,'PL + VL');
 INSERT INTO mobilite_transp.comptage_dom_station_type VALUES (2,'vélo sur aménagement');
@@ -157,7 +161,7 @@ CREATE VIEW mobilite_transp.v_comptage_station_automatique AS
     b.shape::geometry(Point,3948) AS shape
   FROM mobilite_transp.comptage_automatique a
     LEFT JOIN mobilite_transp.comptage_station b ON a.station_uid = b.station_uid ;
-
+ALTER TABLE mobilite_transp.v_comptage_station_automatique OWNER TO mobilite_transp;
 
 -- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 -- les permissions
