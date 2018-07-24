@@ -24,7 +24,7 @@ import geojson
 
 
 # ATTENTION : fichier encodé en UCS-2 little endian // UTF-16
-# passer le fichier en UTF-8 pour le lire
+# passer le fichier en UTF-8 pour pouvoir le lire
 f_to_import = './fichiers_a_importer/test'
 
 # url vers le GeoJSON en ligne dans uMap
@@ -310,85 +310,69 @@ def calculTimeStamp(jour, heure):
 
 def insertEnqueteInDB ():
 
-  global enquete_id
+  # on va lire le fichier csv /fichiers_a_importer/_enquete_a_creer.csv
+  # pour insérer ces infos en base
 
-  try:
-    # connexion à la base, si plante, on sort
-    conn = psycopg2.connect(strConnDB)
+  print( "Création d'une enquête", file=utf8stdout )
+  print( "Création d'une enquête" )
 
-    cursor = conn.cursor()
+  f_enquete = './fichiers_a_importer/_enquete_a_creer.csv'
+  f = open(f_enquete,'r')
+  f_content = f.readlines()
 
+  # on compte le nb de lignes car on attend au moins 2, ent-ête y compris
+  if len(f_content) == 1 :
+    print( "  aucune enquête à insérer : arrêt", file=utf8stdout )
+    print( "  aucune enquête à insérer : arrêt" )
+    f.close()
+    sys.exit("")
+  else:
+    i = 0
+    # on boucle sur les lignes
+    for line in f_content :
 
-    # TODO
-    # faire le code qui lit un fichier contenant les infos sur l'enquête à insérer
-    #
-    #
-    #
-    #
-
-    # on vérifie si l'enquête existe déjà en base ou pas
-    SQLVerif = u"""SELECT COUNT(*)
-    FROM mobilite_transp.comptage_enquete
-    WHERE
-     comm_insee = '35022'
-     AND site = 'Bécherel'
-     AND date_deb::date = '2017-10-09';"""
-
-    try:
-      cursor.execute(SQLVerif)
-      result = cursor.fetchone()
-      enquete_test = result[0]
-      #print str(enquete_test)
-
-      # si diffèrent de 0 alors on insère pas
-      if enquete_test > 0 :
-        print( u"L'enquête existe déjà !" )
-
-        # TODO
-        # récupérer l'ID de cette enquête
+      # pour sauter la première ligne
+      if i != 0 :
+        #print( line )
+        # récupération de l'intégralité de la ligne pour requête insertion
+        SQL_insert_requete = "INSERT INTO mobilite_transp.comptage_enquete VALUES ( nextval('mobilite_transp.comptage_enquete_enquete_uid_seq')," + line.replace('"','\'') + " );"
+        #print( SQL_insert_requete )
 
 
-        return 0
-        pass
-      else:
-        # pas de doublon -> on peut insérer la nouvelle enquête
-        print( u"Pas d'enquête pré-existante dans la base avec ces infos." )
-
+         # connection à la base
         try:
-            # on insert la nouvelle enquête
-
-            fakeSQLEnquete = u"""INSERT INTO mobilite_transp.comptage_enquete
-            VALUES (nextval('mobilite_transp.comptage_enquete_enquete_uid_seq'), '35022', 'campagne automne 2017', 'Bécherel',
-            '2017-10-09 01:00:00', '2017-10-15 00:00:00', 'RM DMT SMU', 'Alyce', 'non', 'non', 'oui', 'oui');"""
-
-            cursor.execute(fakeSQLEnquete)
-            conn.commit()
-
-            # et on récupère son identifiant
-            SQL = "SELECT last_value FROM mobilite_transp.comptage_enquete_enquete_uid_seq ;"
-            cursor.execute(SQL)
-
-            result = cursor.fetchone()
-            enquete_id = result[0]
-
-            print( u"Enquête n° " + str(enquete_id) +  u" créée" )
-
-            # on retourne cette valeur
-            return enquete_id
+          # connexion à la base, si plante, on sort
+          conn = psycopg2.connect(strConnDB)
+          cursor = conn.cursor()
 
         except:
-            print( u"Impossible d'exécuter la requête d'insertion d'une enquête" )
+          print( "connexion à la base impossible")
 
-    except:
-      print( u"Impossible d'exécuter la requête de contrôle de l'enquête" )
+        try:
+          # on lance la requête
+          cursor.execute(SQL_insert_requete)
+          conn.commit()
+          print( "1 enquête insérée" )
 
-  except:
-      print( "Impossible de se connecter à la base de données" )
+        except Exception as err:
+          if err.pgcode == "23505":
+            print( "  erreur : cette campagne existe déjà" )
+          else:
+            print( "  impossible d'exécuter la requête INSERT")
+            print( "  PostgreSQL error code : " + err.pgcode )
 
+        # si on est là c'est que tout s'est bien passé
+        try:
+          cursor.close()
+          conn.close()
+        except:
+          print("")
 
-  cursor.close()
-  conn.close()
+      # incrément du compteur
+      i = i + 1
 
+  # on ferme le fichier
+  f.close()
 
 
 
@@ -439,16 +423,8 @@ Les fichiers à importer sont à placer dans le répertoire "fichiers_a_importer
 
   # pour insérer une enquête
   if ('-enquete' in sys.argv):
-    print( "Création d'une enquête", file=utf8stdout )
-
-    # on demande les infos sur l'enquête
-    enquete_comm_insee  = input("code INSEE de la commune : ")
-    enquete_site        = input("site : ")
-    enquete_datedeb     = input("date et heure de début au format 2017-10-09 01:00:00 : " )
-
-    # pas de test : on fait confiance
+    # on passe directemnt à la fonction
     insertEnqueteInDB()
-
     pass
 
 
