@@ -20,22 +20,25 @@ import argparse
 from argparse import RawTextHelpFormatter
 import sys
 import os.path
-import geojson
+import configparser
 
 
-# ATTENTION : fichier encodé en UCS-2 little endian // UTF-16
+# ATTENTION : fichier encodé en UCS-2 little endian // utf_16_le
 # passer le fichier en UTF-8 pour pouvoir le lire
-f_to_import = './fichiers_a_importer/test'
+rep_import = './fichiers_a_importer/'
 
-# url vers le GeoJSON en ligne dans uMap
-url_stations_geojson = "http://umap.openstreetmap.fr/fr/datalayer/497861/"
-f_geojson = './fichiers_a_importer/stations.geojson'
+# répertoire courant
+script_dir = os.path.dirname(__file__)
 
-# le fichier de correspondance
-f_corres_stations = './fichiers_a_importer/stations_correspondances.txt'
+# lecture du fichier de configuration
+config = configparser.ConfigParser()
+config.read( script_dir + '/config.ini')
 
 # la base de données
-strConnDB = "host='localhost' dbname='bdu' user='geocarto' password='geocarto'"
+strConnDB = "host="+ config.get('postgresql', 'host') +" dbname="+ config.get('postgresql', 'db') +" user="+ config.get('postgresql', 'user') +" password="+ config.get('postgresql', 'passwd')
+# le schéma
+DB_schema = config.get('postgresql', 'schema')
+
 
 
 # variables globales
@@ -46,6 +49,8 @@ enquete_comm_insee  = ""
 enquete_description = ""
 enquete_site        = ""
 enquete_datedeb     = ""
+
+stationsArray = []
 
 station_commune     = 0
 station_id          = 0
@@ -80,28 +85,20 @@ def TraiterDonneesFIM():
   Logguer("Les données de comptage seront récupérées depuis les fichiers FIM" )
   Logguer("")
 
+  # on commence par lire le fichier des stations en geojson pour en faire un tableau
+  LectureStations()
+
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def lectureInfosStation():
+def LectureStations():
 
   Logguer("")
   Logguer("Lecture des infos des stations")
   Logguer("Les noms et coordonnées des stations seront récupérées depuis un flux GeoJSON" )
   Logguer("")
 
-  geojson_content = open(f_geojson,'r').read()
-  #Logguer(geojson_content)
 
-  stations = geojson.loads(geojson_content)
-  Logguer(stations)
-
-  # ça ça marche
-  #Logguer( stations[0].properties['identifiant']  )
-
-  # il faut boucler
-  #for station in stations:
-  #  Logguer( station[0].properties['identifiant'] )
 
 
 
@@ -356,7 +353,7 @@ def insertEnqueteInDB ():
       if i != 0 :
         #Logguer( line )
         # récupération de l'intégralité de la ligne pour requête insertion
-        SQL_insert_requete = "INSERT INTO mobilite_transp.comptage_enquete VALUES ( nextval('mobilite_transp.comptage_enquete_enquete_uid_seq')," + line.replace('"','\'') + " );"
+        SQL_insert_requete = "INSERT INTO "+DB_schema+".comptage_enquete VALUES ( nextval('mobilite_transp.comptage_enquete_enquete_uid_seq')," + line.replace('"','\'') + " );"
         #Logguer( SQL_insert_requete )
 
 
@@ -373,7 +370,7 @@ def insertEnqueteInDB ():
           # on lance la requête
           cursor.execute(SQL_insert_requete)
           conn.commit()
-          Logguer( "1 enquête insérée" )
+          Logguer( "  1 enquête insérée" )
 
         except Exception as err:
           if err.pgcode == "23505":
