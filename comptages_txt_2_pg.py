@@ -54,31 +54,42 @@ station_sens        = ""
 campagne_date_deb   = ""
 campagne_heure_deb  = ""
 
-# pour avoir une sortie console en UTF-8
-utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+def Logguer(logString):
+
+  # cette fonction permet de sortir correctement les print() en mode dev (console python) et terminal
+
+  # sortie console en UTF-8
+  utf8stdout = open(1, 'w', encoding='utf-8', closefd=False)
+  print( logString, file=utf8stdout)
+
+  # sortie dans la console python
+  print( logString )
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 def lectureInfosStation():
 
-  print("")
-  print("Lecture des infos des stations")
-  print("Les noms et coordonnées des stations seront récupérées depuis un flux GeoJSON" )
-  print("")
+  Logguer("")
+  Logguer("Lecture des infos des stations")
+  Logguer("Les noms et coordonnées des stations seront récupérées depuis un flux GeoJSON" )
+  Logguer("")
 
   geojson_content = open(f_geojson,'r').read()
-  #print(geojson_content)
+  #Logguer(geojson_content)
 
   stations = geojson.loads(geojson_content)
-  print(stations)
+  Logguer(stations)
 
   # ça ça marche
-  #print( stations[0].properties['identifiant']  )
+  #Logguer( stations[0].properties['identifiant']  )
 
   # il faut boucler
   #for station in stations:
-  #  print( station[0].properties['identifiant'] )
+  #  Logguer( station[0].properties['identifiant'] )
 
 
 
@@ -109,9 +120,9 @@ def lectureMetadonneesFIM():
   campagne_heure_deb = metadata[8].strip()   # '  09' -> '09'
   campagne_heure_deb_jolie = metadata[8].strip() + ':' + metadata[9].strip() + ':00'
 
-  print( " Infos sur la station" )
-  print( "   " + station_commune + ' | ' + station_code + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie )
-  print( "" )
+  Logguer( " Infos sur la station" )
+  Logguer( "   " + station_commune + ' | ' + station_code + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie )
+  Logguer( "" )
 
 
 
@@ -119,7 +130,7 @@ def lectureMetadonneesFIM():
 
 def lectureDonneesFIM():
 
-  print( u"Les données de comptage" )
+  Logguer( u"Les données de comptage" )
 
   f = open(f_to_import,'r')
 
@@ -178,7 +189,7 @@ def lectureDonneesFIM():
       total_VL = total_TV - total_PL
 
       # sortie console
-      print( "   [" + str(i) + ' ' + str(i_data) + '] | jour ' + str(j_courant).zfill(2) + ' heure ' + str(h_courante).zfill(2) + ' | ' + date_tmst + ' | ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )' )
+      Logguer( "   [" + str(i) + ' ' + str(i_data) + '] | jour ' + str(j_courant).zfill(2) + ' heure ' + str(h_courante).zfill(2) + ' | ' + date_tmst + ' | ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )' )
 
       # on peut incrémenter le compteur des valeurs de trafic
       i_data = i_data + 1
@@ -313,8 +324,7 @@ def insertEnqueteInDB ():
   # on va lire le fichier csv /fichiers_a_importer/_enquete_a_creer.csv
   # pour insérer ces infos en base
 
-  print( "Création d'une enquête", file=utf8stdout )
-  print( "Création d'une enquête" )
+  Logguer( "Création d'une enquête" )
 
   f_enquete = './fichiers_a_importer/_enquete_a_creer.csv'
   f = open(f_enquete,'r')
@@ -322,8 +332,7 @@ def insertEnqueteInDB ():
 
   # on compte le nb de lignes car on attend au moins 2, ent-ête y compris
   if len(f_content) == 1 :
-    print( "  aucune enquête à insérer : arrêt", file=utf8stdout )
-    print( "  aucune enquête à insérer : arrêt" )
+    Logguer( "  aucune enquête à insérer : arrêt" )
     f.close()
     sys.exit("")
   else:
@@ -333,10 +342,10 @@ def insertEnqueteInDB ():
 
       # pour sauter la première ligne
       if i != 0 :
-        #print( line )
+        #Logguer( line )
         # récupération de l'intégralité de la ligne pour requête insertion
         SQL_insert_requete = "INSERT INTO mobilite_transp.comptage_enquete VALUES ( nextval('mobilite_transp.comptage_enquete_enquete_uid_seq')," + line.replace('"','\'') + " );"
-        #print( SQL_insert_requete )
+        #Logguer( SQL_insert_requete )
 
 
          # connection à la base
@@ -346,27 +355,27 @@ def insertEnqueteInDB ():
           cursor = conn.cursor()
 
         except:
-          print( "connexion à la base impossible")
+          Logguer( "connexion à la base impossible")
 
         try:
           # on lance la requête
           cursor.execute(SQL_insert_requete)
           conn.commit()
-          print( "1 enquête insérée" )
+          Logguer( "1 enquête insérée" )
 
         except Exception as err:
           if err.pgcode == "23505":
-            print( "  erreur : cette campagne existe déjà" )
+            Logguer( "  erreur : cette campagne existe déjà (ligne " + str(i) + ")" )
           else:
-            print( "  impossible d'exécuter la requête INSERT")
-            print( "  PostgreSQL error code : " + err.pgcode )
+            Logguer( "  impossible d'exécuter la requête INSERT")
+            Logguer( "  PostgreSQL error code : " + err.pgcode )
 
         # si on est là c'est que tout s'est bien passé
         try:
           cursor.close()
           conn.close()
         except:
-          print("")
+          Logguer("")
 
       # incrément du compteur
       i = i + 1
@@ -399,13 +408,13 @@ Les fichiers à importer sont à placer dans le répertoire "fichiers_a_importer
 
 
   # debug for coding
-  #insertEnqueteInDB()
+  insertEnqueteInDB()
   #lectureMetadonneesFIM()
   #lectureDonneesFIM()
   #lectureInfosStation()
-  #sys.exit("arret dedug")
+  sys.exit("arret dedug")
 
-  print( "++++++++++++++++++++++++++++++++++++++++ " )
+  Logguer( "++++++++++++++++++++++++++++++++++++++++ " )
 
   # mode verbeux
   parser.add_argument("-v", help="mode verbeux")
@@ -418,7 +427,7 @@ Les fichiers à importer sont à placer dans le répertoire "fichiers_a_importer
 
   # for debug
   #print 'Number of arguments:', len(sys.argv), 'arguments.'
-  #print( 'Argument List:', str(sys.argv))
+  #Logguer( 'Argument List:', str(sys.argv))
 
 
   # pour insérer une enquête
@@ -428,7 +437,7 @@ Les fichiers à importer sont à placer dans le répertoire "fichiers_a_importer
     pass
 
 
-  print( "++++++++++++++++++++++++++++++++++++++++ " )
+  Logguer( "++++++++++++++++++++++++++++++++++++++++ " )
 
 
 
