@@ -52,9 +52,11 @@ enquete_datedeb     = ""
 
 stationsArray = []
 
-station_commune     = 0
+
 station_id          = 0
 station_code        = ""
+station_description = ""
+station_commune     = 0
 station_sens        = ""
 campagne_date_deb   = ""
 campagne_heure_deb  = ""
@@ -98,7 +100,48 @@ def LectureStations():
   Logguer("Les noms et coordonnées des stations seront récupérées depuis un flux GeoJSON" )
   Logguer("")
 
+  import requests
+  import json
 
+  # mode url
+  url_station = config.get('umap', 'poste_comptage_auto')
+
+  # on voit si on est en mode proxy ou pas
+  if (config.get('proxy', 'enable') == "true" ):
+    # oui alors on va lire la configuration
+    proxyConfig = {
+      'http': ''+config.get('proxy','http')+'',
+      'https': ''+config.get('proxy','https')+'',
+    }
+  else:
+    proxyConfig = {}
+
+  #print( proxyConfig )
+
+  # on récupère le geojson
+  try:
+    geojson_content = requests.get(url_station, proxies=proxyConfig).text
+    #print(geojson_content)
+
+    # saloperie de proxy
+    if (geojson_content[0:27] != "{\"type\":\"FeatureCollection"):
+      Logguer( "  erreur : le contenu récupérer ne semble pas être du json. Un pb de proxy ?" )
+      sys.exit()
+
+    # parse
+    stations = json.loads(geojson_content)
+
+    i = 0
+    for feature in stations['features'] :
+      i = i +1
+      #print( feature['properties']['nom'] +' | '+ feature['properties']['description'] +' | '+ str(feature['geometry']['coordinates']) )
+      # on remplit le tableau
+      stationsArray.append(feature['properties']['nom'], feature['properties']['description'])
+
+    Logguer( str(i) + " stations lues depuis la couche umap")
+
+  except Exception as err:
+    print( str(err) )
 
 
 
