@@ -106,45 +106,45 @@ def LectureStations():
   # mode url
   url_station = config.get('umap', 'poste_comptage_auto')
 
-  # On crée une session pour la requête HTP
-  s = requests.Session()
-
-  # on voit ensuite si on est en mode proxy ou pas
-  if (config.get('proxy', 'enable') == "true" ):
-    # oui alors on va lire la configuration
-    proxyConfig = {
-      'http': ''+config.get('proxy','http')+'',
-      'https': ''+config.get('proxy','https')+'',
-    }
-    # et on l'utilise pour la session
-    s.proxies = proxyConfig
-
+  r = requests.Session()
+  proxyConfig = {
+    'http': ''+config.get('proxy','http')+'',
+    'https': ''+config.get('proxy','https')+'',
+  }
+  #print(proxyConfig)
+  r.proxies = proxyConfig
 
   # on récupère le geojson
   try:
     # requête HTTP à travers le proxy si proxy configuré
-    geojson_content = s.get(url_station).text
-    print(geojson_content)
+    geojson_content = r.get(url_station).text
 
-    # saloperie de proxy
+    # test du début pour voir si c'est du JSON
     if (geojson_content[0:27] != "{\"type\":\"FeatureCollection"):
-      Logguer( "  erreur : le contenu récupérer ne semble pas être du json. Un pb de proxy ?" )
+      Logguer( "ERREUR ! Le contenu récupérer ne semble pas être du json. Un pb de proxy ?" )
+      Logguer("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+      Logguer(geojson_content)
       sys.exit()
-
-    # parse
-    stations = json.loads(geojson_content)
-
-    i = 0
-    for feature in stations['features'] :
-      i = i +1
-      #print( feature['properties']['nom'] +' | '+ feature['properties']['description'] +' | '+ str(feature['geometry']['coordinates']) )
-      # on remplit le tableau
-      stationsArray.append(feature['properties']['nom'], feature['properties']['description'])
-
-    Logguer( str(i) + " stations lues depuis la couche umap")
 
   except Exception as err:
     print( str(err) )
+
+
+  # pas de pb : on continue
+  print(geojson_content)
+  # parse
+  stations = json.loads(geojson_content)
+
+  i = 0
+  for feature in stations['features'] :
+    i = i +1
+    #print( feature['properties']['nom'] +' | '+ feature['properties']['description'] +' | '+ str(feature['geometry']['coordinates']) )
+    # on remplit le tableau
+    #stationsArray.append(feature['properties']['nom'], feature['properties']['description'])
+
+  Logguer( str(i) + " stations lues depuis la couche umap")
+
+
 
 
 
