@@ -23,12 +23,13 @@ import os.path
 import configparser
 
 
-# ATTENTION : fichier encodé en UCS-2 little endian // utf_16_le
-# passer le fichier en UTF-8 pour pouvoir le lire
-rep_import = './fichiers_a_importer/'
 
 # répertoire courant
 script_dir = os.path.dirname(__file__)
+
+# ATTENTION : fichier encodé en UCS-2 little endian // utf_16_le
+# passer le fichier en UTF-8 pour pouvoir le lire
+rep_import = script_dir + '/fichiers_a_importer/'
 
 # lecture du fichier de configuration
 config = configparser.ConfigParser()
@@ -52,7 +53,6 @@ enquete_datedeb     = ""
 
 stationsArray = []
 
-
 station_id          = 0
 station_code        = ""
 station_description = ""
@@ -61,6 +61,7 @@ station_sens        = ""
 campagne_date_deb   = ""
 campagne_heure_deb  = ""
 
+FichiersFIM = []
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -87,8 +88,19 @@ def TraiterDonneesFIM():
   Logguer("Les données de comptage seront récupérées depuis les fichiers FIM" )
   Logguer("")
 
-  # on commence par lire le fichier des stations en geojson pour en faire un tableau
+  # on commence par lire le fichier des postes de comptages en geojson pour en faire un tableau
   LectureStations()
+  sys.exit
+
+  # fake for dev
+  stationsArray.append(['35352', '35352_10', '', -1.605361, 48.04621])
+  stationsArray.append(['35352', '35352_12', '', -1.618214, 48.04479])
+
+  # on fait ensuite la liste des fichiers à traiter
+  ListeDesFichiersFIM()
+
+  # on peut enfin lire les fichiers FIM
+  lectureMetadonneesFIM()
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -176,9 +188,18 @@ def LectureStations():
   Logguer( str(i) + " stations lues depuis la couche umap")
 
   # test lecture du tableau des stations
-  #for item in stationsArray:
-  #  print( item )
+  for item in stationsArray:
+    print( item )
 
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+def ListeDesFichiersFIM():
+
+  # sert à faire la liste des fichier FIM à traiter dans le répertoire d'import
+
+  for fichier in os.listdir(rep_import):
+    if( fichier != '_enquete_a_creer.csv'): FichiersFIM.append(fichier)
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -558,3 +579,5 @@ Scénario classique :
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # https://fastkml.readthedocs.io/en/latest/
+# http://apprendre-python.com/page-apprendre-listes-list-tableaux-tableaux-liste-array-python-cours-debutant
+
