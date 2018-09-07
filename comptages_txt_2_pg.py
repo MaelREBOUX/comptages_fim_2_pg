@@ -106,13 +106,18 @@ def LectureStations():
   # mode url
   url_station = config.get('umap', 'poste_comptage_auto')
 
+  # on ouvre une session
   r = requests.Session()
-  proxyConfig = {
-    'http': ''+config.get('proxy','http')+'',
-    'https': ''+config.get('proxy','https')+'',
-  }
-  #print(proxyConfig)
-  r.proxies = proxyConfig
+
+  # on voit si on est en mode proxy ou pas
+  if (config.get('proxy', 'enable') == "true" ):
+    # oui alors on va lire la configuration
+    proxyConfig = {
+      'http': ''+config.get('proxy','http')+'',
+      'https': ''+config.get('proxy','https')+'',
+    }
+    r.proxies = proxyConfig
+
 
   # on récupère le geojson
   try:
@@ -120,7 +125,7 @@ def LectureStations():
     geojson_content = r.get(url_station).text
 
     # test du début pour voir si c'est du JSON
-    if (geojson_content[0:27] != "{\"type\":\"FeatureCollection"):
+    if (geojson_content[0:26] != "{\"type\":\"FeatureCollection"):
       Logguer( "ERREUR ! Le contenu récupérer ne semble pas être du json. Un pb de proxy ?" )
       Logguer("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
       Logguer(geojson_content)
@@ -131,7 +136,7 @@ def LectureStations():
 
 
   # pas de pb : on continue
-  print(geojson_content)
+  #print(geojson_content)
   # parse
   stations = json.loads(geojson_content)
 
