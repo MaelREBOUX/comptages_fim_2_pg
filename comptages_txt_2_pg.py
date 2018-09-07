@@ -106,22 +106,25 @@ def LectureStations():
   # mode url
   url_station = config.get('umap', 'poste_comptage_auto')
 
-  # on voit si on est en mode proxy ou pas
+  # On crée une session pour la requête HTP
+  s = requests.Session()
+
+  # on voit ensuite si on est en mode proxy ou pas
   if (config.get('proxy', 'enable') == "true" ):
     # oui alors on va lire la configuration
     proxyConfig = {
       'http': ''+config.get('proxy','http')+'',
       'https': ''+config.get('proxy','https')+'',
     }
-  else:
-    proxyConfig = {}
+    # et on l'utilise pour la session
+    s.proxies = proxyConfig
 
-  #print( proxyConfig )
 
   # on récupère le geojson
   try:
-    geojson_content = requests.get(url_station, proxies=proxyConfig).text
-    #print(geojson_content)
+    # requête HTTP à travers le proxy si proxy configuré
+    geojson_content = s.get(url_station).text
+    print(geojson_content)
 
     # saloperie de proxy
     if (geojson_content[0:27] != "{\"type\":\"FeatureCollection"):
