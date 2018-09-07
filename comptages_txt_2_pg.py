@@ -147,6 +147,27 @@ def LectureStations():
     # on remplit le tableau
     #stationsArray.append(feature['properties']['nom'], feature['properties']['description'])
 
+    # la structure du JSON de umap pouvant être bizare : on essaie sur chaque attribut
+    commune_insee = "*"
+    nom = "*"
+    description = "*"
+    coordonnees = "*"
+
+    try: commune_insee = feature['properties']['commune_insee']
+    except: pass
+    try: nom = feature['properties']['nom']
+    except: pass
+    try: description = feature['properties']['description']
+    except: pass
+    try: coordonnees = str(feature['geometry']['coordinates'])
+    except: pass
+
+    Logguer( commune_insee + " | " + nom  + " | " + description + " | " + coordonnees)
+
+
+    # debug
+    #if (i == 3) :  sys.exit()
+
   Logguer( str(i) + " stations lues depuis la couche umap")
 
 
