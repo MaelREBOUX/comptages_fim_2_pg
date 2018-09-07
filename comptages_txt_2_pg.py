@@ -143,15 +143,14 @@ def LectureStations():
   i = 0
   for feature in stations['features'] :
     i = i +1
-    #print( feature['properties']['nom'] +' | '+ feature['properties']['description'] +' | '+ str(feature['geometry']['coordinates']) )
-    # on remplit le tableau
-    #stationsArray.append(feature['properties']['nom'], feature['properties']['description'])
 
     # la structure du JSON de umap pouvant être bizare : on essaie sur chaque attribut
     commune_insee = "*"
     nom = "*"
     description = "*"
     coordonnees = "*"
+    x = ""
+    y = ""
 
     try: commune_insee = feature['properties']['commune_insee']
     except: pass
@@ -159,19 +158,26 @@ def LectureStations():
     except: pass
     try: description = feature['properties']['description']
     except: pass
-    try: coordonnees = str(feature['geometry']['coordinates'])
+    try:
+      coordonnees = str(feature['geometry']['coordinates'])
+      # on extrait le X et le y
+      x = feature['geometry']['coordinates'][0]
+      y = feature['geometry']['coordinates'][1]
     except: pass
 
-    Logguer( commune_insee + " | " + nom  + " | " + description + " | " + coordonnees)
+    #Logguer( commune_insee + " | " + nom  + " | " + description + " | " + str(x)+","+str(y) )
 
-
-    # debug
-    #if (i == 3) :  sys.exit()
+    # on remplit le tableau
+    # les infos de chaque station = une liste
+    station = [commune_insee, nom, description, x, y]
+    # qu'on rajoute au tableau des stations
+    stationsArray.append(station)
 
   Logguer( str(i) + " stations lues depuis la couche umap")
 
-
-
+  # test lecture du tableau des stations
+  #for item in stationsArray:
+  #  print( item )
 
 
 
