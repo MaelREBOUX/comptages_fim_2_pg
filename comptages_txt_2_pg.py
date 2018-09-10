@@ -65,6 +65,9 @@ campagne_heure_deb  = ""
 
 FichiersFIM = []
 
+comptageArray = []
+
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 def Logguer(logString):
@@ -86,8 +89,6 @@ def TraiterDonneesFIM():
 
   Logguer("")
   Logguer("Lecture et import des données de comptage routier")
-  Logguer("Les noms et coordonnées des stations seront récupérées depuis un flux GeoJSON" )
-  Logguer("Les données de comptage seront récupérées depuis les fichiers FIM" )
   Logguer("")
 
   # on commence par lire le fichier des postes de comptages en geojson pour en faire un tableau
@@ -100,16 +101,13 @@ def TraiterDonneesFIM():
   # on fait ensuite la liste des fichiers à traiter
   ListeDesFichiersFIM()
 
-  Logguer("")
   Logguer("Début de la boucle sur les fichiers FIM à importer")
-  Logguer("")
 
   # et on boucle dessus
   for fichier in FichiersFIM :
     lectureMetadonneesFIM(fichier)
     insertStationInDB()
-    verifCampagne()
-    #lectureDonneesFIM(fichier)
+    lectureDonneesFIM(fichier)
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -259,7 +257,7 @@ def lectureMetadonneesFIM(fichier):
 def lectureDonneesFIM(fichier):
 
   Logguer( "" )
-  Logguer( u"Les données de comptage" )
+  Logguer( u"   Les données de comptage" )
 
   f = open(rep_import + fichier,'r',encoding=fim_file_encoding)
 
@@ -318,7 +316,10 @@ def lectureDonneesFIM(fichier):
       total_VL = total_TV - total_PL
 
       # sortie console
-      Logguer( "   [" + str(i) + ' ' + str(i_data) + '] | jour ' + str(j_courant).zfill(2) + ' heure ' + str(h_courante).zfill(2) + ' | ' + date_tmst + ' | ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )' )
+      Logguer( "      [" + str(i) + ' ' + str(i_data) + '] | jour ' + str(j_courant).zfill(2) + ' heure ' + str(h_courante).zfill(2) + ' | ' + date_tmst + ' | ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )' )
+
+      # on remplit le tableau
+      #comptageArray.append()
 
       # on peut incrémenter le compteur des valeurs de trafic
       i_data = i_data + 1
@@ -600,7 +601,7 @@ def insertStationInDB():
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def verifCampagne():
+def verifEnquete():
 
   # il s'agit de vérifier :
   # 1. si la campagne existe dans la base de données
@@ -608,7 +609,48 @@ def verifCampagne():
 
   # est-ce que la campagne existe bien ?
   Logguer("")
-  Logguer("  Vérification de la campagne n° " + str(enquete_id))
+  Logguer("Vérification de l'enquête n° " + str(enquete_id))
+
+  try:
+    # connexion à la base, si plante, on sort
+    conn = psycopg2.connect(strConnDB)
+    cursor = conn.cursor()
+  except:
+    Logguer( "connexion à la base impossible")
+
+  try:
+    SQL_verif_enquete = "SELECT count(*) FROM "+DB_schema+".comptage_enquete WHERE enquete_uid = " + enquete_id +" ;"
+
+    # on lance la requête
+    cursor.execute(SQL_verif_enquete)
+    result = cursor.fetchone()
+    test = result[0]
+
+    if (test == 0):
+      # pas d'enquête déjà en base -> on sort car c'est un process à part
+      Logguer("Cette enquête n'existe pas dans la base de données. Veuillez la créer avant tout import de données de comptage.")
+      Logguer("Merci de regarder l'aide de ce programme.")
+      cursor.close()
+      conn.close()
+      sys.exit()
+
+    else:
+      # la campagne existe déjà
+      Logguer("Cette enquête existe déjà dans la base de données.")
+      # il faut vérifier si les dates des comptages du fichier collent avec les bornes de l'enquête
+      # TODO
+
+
+  except Exception as err:
+    Logguer( "  impossible d'exécuter la requête " + SQL_verif_enquete)
+    #Logguer( "  PostgreSQL error code : " + err.pgcode )
+
+  # si on est là c'est que tout s'est bien passé
+  try:
+    cursor.close()
+    conn.close()
+  except:
+    Logguer("")
 
 
 
@@ -653,8 +695,8 @@ Scénario classique :
   #sys.exit("arret dedug")
 
   # for debug
-  print( 'Number of arguments:', len(sys.argv), 'arguments.' )
-  print( 'Argument List:', str(sys.argv) )
+  #print( 'Number of arguments:', len(sys.argv), 'arguments.' )
+  #print( 'Argument List:', str(sys.argv) )
 
   # index de l'argument dans la ligne de commande
   ArgvIdEnquete = 2
@@ -680,8 +722,11 @@ Scénario classique :
       testIdEnquete =  sys.argv[ArgvIdEnquete]
       # on vérifie que c'est numérique
       if testIdEnquete.isnumeric() :
-        # tout est ok : on appelle la fonction
+        # tout est ok
         enquete_id = testIdEnquete
+        # on appelle la fonction qui vérifie si l'enquête est ok ou pas
+        verifEnquete()
+        # si ça passe -> on peut passer au traitement des fichiers
         TraiterDonneesFIM()
         # et on arrête car cette fonction ne doit faire que ça
         sys.exit()
