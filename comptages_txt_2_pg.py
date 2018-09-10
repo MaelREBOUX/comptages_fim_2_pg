@@ -54,8 +54,8 @@ enquete_datedeb     = ""
 
 stationsArray = []
 
-station_id          = 0
-station_code        = ""
+station_uid          = 0
+station_id           = ""
 station_description = ""
 station_code_insee  = ""
 station_commune     = 0
@@ -108,6 +108,7 @@ def TraiterDonneesFIM():
     lectureMetadonneesFIM(fichier)
     insertStationInDB()
     lectureDonneesFIM(fichier)
+    insertDonneesComptageInDB()
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -218,7 +219,8 @@ def lectureMetadonneesFIM(fichier):
 
   # on déclare ces variables comme globales
   global station_commune
-  global station_code
+  global station_uid
+  global station_id
   global station_sens
   global campagne_date_deb
   global campagne_heure_deb
@@ -239,7 +241,7 @@ def lectureMetadonneesFIM(fichier):
   # on met en mémoire
   # code de la station de comptage
   station_commune = "35" + metadata[1].strip()
-  station_code = station_commune + "_" + metadata[2]
+  station_id = station_commune + "_" + metadata[2]
   station_sens = metadata[4].strip()
   campagne_date_deb = '20' + metadata[5].strip() +'-'+ metadata[6].strip() +'-'+ metadata[7].strip()
   campagne_heure_deb = metadata[8].strip()   # '  09' -> '09'
@@ -247,7 +249,7 @@ def lectureMetadonneesFIM(fichier):
 
   Logguer( "" )
   Logguer( "Infos sur la station" )
-  Logguer( "   " + station_commune + ' | ' + station_code + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie )
+  Logguer( "   " + station_commune + ' | ' + station_id + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie )
   #Logguer( "" )
 
 
@@ -321,7 +323,7 @@ def lectureDonneesFIM(fichier):
 
       # on remplit le tableau dans l'ordre de la table en base
       # enquete_id, station_uid, date_tmst, date_str, heure_deb, heure_fin, heure_intervalle, nb_total, nb_vl, nb_pl
-      tempArray = [enquete_id, station_id, date_tmst, date_tmst, h_courante, h_courante + 1, intervalle, total_TV, total_VL, total_PL]
+      tempArray = [enquete_id, station_uid, date_tmst, date_tmst, h_courante, h_courante + 1, intervalle, total_TV, total_VL, total_PL]
       comptageArray.append(tempArray)
 
       # on peut incrémenter le compteur des valeurs de trafic
@@ -538,7 +540,8 @@ def insertStationInDB():
   # donc on commence par vérifier si ça matche pour avoir toutes les infos sur la station en cours de traitement
 
   # mais avant : on commence bêtement pr vérifier si la station est déjà en base ou pas
-  SQL_verif_station = "SELECT count(*) FROM "+DB_schema+".comptage_station WHERE station_id = '" + station_code + "' AND sens = " + station_sens +" ;"
+  SQL_verif_station = "SELECT count(*) FROM "+DB_schema+".comptage_station WHERE station_id = '" + station_id + "' AND sens = " + station_sens +" ;"
+  #Logguer(SQL_verif_station)
 
   try:
     # connexion à la base, si plante, on sort
@@ -568,7 +571,7 @@ def insertStationInDB():
 
       # on peut maintenant créer la requête d'insertion
       SQL_insert_station = "INSERT INTO "+DB_schema+".comptage_station (station_id, comm_insee, type, sens, description, long, lat, x, y, shape) "
-      SQL_insert_station += "VALUES ('"+ station_code +"', '"+ station_code_insee + "', 1, "+ station_sens +", '"+ station_description +"', "
+      SQL_insert_station += "VALUES ('"+ station_id +"', '"+ station_code_insee + "', 1, "+ station_sens +", '"+ station_description +"', "
       # long / lat
       SQL_insert_station += str(station_long) +", "+ str(station_lat) +", "
       # x / y
@@ -582,22 +585,46 @@ def insertStationInDB():
       cursor.execute(SQL_insert_station)
       conn.commit()
 
-      Logguer( "   Station ajoutée à la base.")
+      # il faut maintenant récupérer son identifiant unique
+      SQL_last_uid = "SELECT last_value FROM "+DB_schema+".comptage_station_station_uid_seq"
+      cursor.execute(SQL_last_uid)
+      result = cursor.fetchone()
+      station_uid = result[0]
+
+      Logguer( "   Station ajoutée à la base de données avec l'identifiant unique : "+  str(station_uid) )
 
     else:
-      # la station existe déjà
-      Logguer("   Cette station existe déjà dans la base de données.")
+      # la station existe déjà et il faut récupérer son identifiant unique
+      SQL_last_uid = "SELECT station_uid FROM "+DB_schema+".comptage_station WHERE station_id = '" + station_id +"' AND sens = " + str(station_sens) + ";"
+      cursor.execute(SQL_last_uid)
+      result = cursor.fetchone()
+      station_uid = result[0]
+      Logguer("   Cette station existe déjà dans la base de données avec l'identifiant unique : "+  str(station_uid) )
 
   except Exception as err:
-    Logguer( "  impossible d'exécuter la requête " + SQL_verif_station)
+    Logguer(err)
+    #Logguer( "  impossible d'exécuter la requête " + SQL_verif_station)
     #Logguer( "  PostgreSQL error code : " + err.pgcode )
+    sys.exit()
 
   # si on est là c'est que tout s'est bien passé
   try:
     cursor.close()
     conn.close()
   except:
-    Logguer("")
+    Logguer("fin anormale du programme")
+    sys.exit()
+
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+def insertDonneesComptageInDB():
+
+  i = 0
+  for record in comptageArray :
+    #print( comptageArray[i])
+
+    i = i + 1
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
