@@ -29,7 +29,7 @@ script_dir = os.path.dirname(__file__)
 
 # ATTENTION : fichier encodé en UCS-2 little endian // utf_16_le
 # passer le fichier en UTF-8 pour pouvoir le lire
-rep_import = script_dir + '/fichiers_a_importer/'
+rep_import = script_dir + '\\fichiers_a_importer\\'
 
 # lecture du fichier de configuration
 config = configparser.ConfigParser()
@@ -89,9 +89,7 @@ def TraiterDonneesFIM():
   Logguer("")
 
   # on commence par lire le fichier des postes de comptages en geojson pour en faire un tableau
-  LectureStations()
-  sys.exit
-
+  #LectureStations()
   # fake for dev
   stationsArray.append(['35352', '35352_10', '', -1.605361, 48.04621])
   stationsArray.append(['35352', '35352_12', '', -1.618214, 48.04479])
@@ -99,8 +97,10 @@ def TraiterDonneesFIM():
   # on fait ensuite la liste des fichiers à traiter
   ListeDesFichiersFIM()
 
-  # on peut enfin lire les fichiers FIM
-  lectureMetadonneesFIM()
+  # et on boucle dessus
+  for fichier in FichiersFIM :
+    lectureMetadonneesFIM(fichier)
+    lectureDonneesFIM(fichier)
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -188,8 +188,8 @@ def LectureStations():
   Logguer( str(i) + " stations lues depuis la couche umap")
 
   # test lecture du tableau des stations
-  for item in stationsArray:
-    print( item )
+  #for item in stationsArray:
+  #  print( item )
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -204,7 +204,7 @@ def ListeDesFichiersFIM():
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def lectureMetadonneesFIM():
+def lectureMetadonneesFIM(fichier):
 
   # on déclare ces variables comme globales
   global station_commune
@@ -215,7 +215,7 @@ def lectureMetadonneesFIM():
 
 
   # on lit la première ligne pour récupéer les métadonnées
-  L_metadata = linecache.getline(f_to_import,1)
+  L_metadata = linecache.getline(rep_import + fichier,1)
   # on splitte
   metadata = L_metadata.split('.')
 
@@ -228,6 +228,7 @@ def lectureMetadonneesFIM():
   campagne_heure_deb = metadata[8].strip()   # '  09' -> '09'
   campagne_heure_deb_jolie = metadata[8].strip() + ':' + metadata[9].strip() + ':00'
 
+  Logguer( "" )
   Logguer( " Infos sur la station" )
   Logguer( "   " + station_commune + ' | ' + station_code + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie )
   Logguer( "" )
@@ -236,11 +237,11 @@ def lectureMetadonneesFIM():
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def lectureDonneesFIM():
+def lectureDonneesFIM(fichier):
 
   Logguer( u"Les données de comptage" )
 
-  f = open(f_to_import,'r')
+  f = open(rep_import + fichier,'r',encoding='utf-8')
 
   f_content = f.readlines()
 
@@ -291,7 +292,7 @@ def lectureDonneesFIM():
       total_TV = lectureLigneTV(line[:-1])
 
       # pour les données PL on envoie le numéro de la ligne en cours
-      total_PL = lectureLignePL(i)
+      total_PL = lectureLignePL(fichier, i)
 
       # on fait un calcul simple pour retrouver le nb de véhicules légers
       total_VL = total_TV - total_PL
@@ -347,7 +348,7 @@ def lectureLigneTV(ligne):
 
 
 
-def lectureLignePL(num_ligneTV):
+def lectureLignePL(fichier, num_ligneTV):
 
   #print "   Donnees Tout Vehicule"
   #print "num ligne PL = " + str(num_ligneTV)
@@ -356,7 +357,7 @@ def lectureLignePL(num_ligneTV):
   totalPL = 0
 
   # on va à la ligne TV + le décalage dans le fichier
-  ligne = linecache.getline(f_to_import, num_ligneTV + 171)
+  ligne = linecache.getline(rep_import + fichier, num_ligneTV + 171)
 
   # on splite sur le .
   hits = ligne[:-1].split('.')
