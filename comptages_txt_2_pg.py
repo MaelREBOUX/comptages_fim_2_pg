@@ -91,20 +91,23 @@ def TraiterDonneesFIM():
   Logguer("")
 
   # on commence par lire le fichier des postes de comptages en geojson pour en faire un tableau
-  #LectureStations()
+  LectureStations()
+
   # fake for dev
-  stationsArray.append(['35352', '35352_0010', '', -1.605361, 48.04621])
-  stationsArray.append(['35352', '35352_0012', 'Vers Noyal-Châtillon', -1.618214, 48.04479])
+  #stationsArray.append(['35352', '35352_0010', '', -1.605361, 48.04621])
+  #stationsArray.append(['35352', '35352_0012', 'Vers Noyal-Châtillon', -1.618214, 48.04479])
 
   # on fait ensuite la liste des fichiers à traiter
   ListeDesFichiersFIM()
 
+  Logguer("")
+  Logguer("Début de la boucle sur les fichiers FIM à importer")
+  Logguer("")
+
   # et on boucle dessus
   for fichier in FichiersFIM :
     lectureMetadonneesFIM(fichier)
-
     insertStationInDB()
-
     lectureDonneesFIM(fichier)
 
 
@@ -171,7 +174,10 @@ def LectureStations():
 
     try: commune_insee = feature['properties']['commune_insee']
     except: pass
-    try: nom = feature['properties']['nom']
+    try:
+      nom = feature['properties']['nom']
+      # on reformate pour que le code de station soit du style 35352_0004
+      nom = nom[0:5] +"_"+ nom[6:].zfill(4)
     except: pass
     try: description = feature['properties']['description']
     except: pass
@@ -251,6 +257,7 @@ def lectureMetadonneesFIM(fichier):
 
 def lectureDonneesFIM(fichier):
 
+  Logguer( "" )
   Logguer( u"Les données de comptage" )
 
   f = open(rep_import + fichier,'r',encoding=fim_file_encoding)
@@ -545,7 +552,7 @@ def insertStationInDB():
 
     if (NbStationIdentique == 0):
       # pas de station déjà en base -> on la crée
-      Logguer("Cette station n'existe pas déjà dans la base de données.")
+      Logguer("   Cette station n'existe pas déjà dans la base de données.")
 
       # on va donc interroger le tableau pour compléter les infos dont on dipose déjà
       for station in stationsArray:
@@ -572,11 +579,11 @@ def insertStationInDB():
       cursor.execute(SQL_insert_station)
       conn.commit()
 
-      Logguer( "Station ajoutée à la base.")
+      Logguer( "   Station ajoutée à la base.")
 
     else:
       # la station existe déjà
-      Logguer("Cette station existe déjà dans la base de données.")
+      Logguer("   Cette station existe déjà dans la base de données.")
 
   except Exception as err:
     Logguer( "  impossible d'exécuter la requête " + SQL_verif_station)
