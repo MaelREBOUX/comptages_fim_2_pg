@@ -91,11 +91,11 @@ def TraiterDonneesFIM():
   Logguer("")
 
   # on commence par lire le fichier des postes de comptages en geojson pour en faire un tableau
-  LectureStations()
+  #LectureStations()
 
   # fake for dev
   #stationsArray.append(['35352', '35352_0010', '', -1.605361, 48.04621])
-  #stationsArray.append(['35352', '35352_0012', 'Vers Noyal-Châtillon', -1.618214, 48.04479])
+  stationsArray.append(['35352', '35352_0012', 'Vers Noyal-Châtillon', -1.618214, 48.04479])
 
   # on fait ensuite la liste des fichiers à traiter
   ListeDesFichiersFIM()
@@ -108,7 +108,8 @@ def TraiterDonneesFIM():
   for fichier in FichiersFIM :
     lectureMetadonneesFIM(fichier)
     insertStationInDB()
-    lectureDonneesFIM(fichier)
+    verifCampagne()
+    #lectureDonneesFIM(fichier)
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -596,6 +597,21 @@ def insertStationInDB():
   except:
     Logguer("")
 
+
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+def verifCampagne():
+
+  # il s'agit de vérifier :
+  # 1. si la campagne existe dans la base de données
+  # 2. si les dates bornées de la campagne correspondent aux dates des comptages
+
+  # est-ce que la campagne existe bien ?
+  Logguer("")
+  Logguer("  Vérification de la campagne n° " + str(enquete_id))
+
+
+
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -637,15 +653,16 @@ Scénario classique :
   #sys.exit("arret dedug")
 
   # for debug
-  #print( 'Number of arguments:', len(sys.argv), 'arguments.' )
-  #print( 'Argument List:', str(sys.argv) )
+  print( 'Number of arguments:', len(sys.argv), 'arguments.' )
+  print( 'Argument List:', str(sys.argv) )
 
-  testIdEnquete = 2
+  # index de l'argument dans la ligne de commande
+  ArgvIdEnquete = 2
 
   # mode debug optionnel pur sortie console
   if ('-debug' in sys.argv):
     mode_debug = True
-    testIdEnquete = 3
+    ArgvIdEnquete = ArgvIdEnquete + 1
     pass
 
   # pour insérer une enquête
@@ -658,13 +675,16 @@ Scénario classique :
   # pour traiter les fichiers FIM
   if ('-donnees_fim' in sys.argv):
     # on verifie qu'un id d'enquête a bien été passé
-    if ( len(sys.argv) == testIdEnquete +1 ):
-      # on vérifie maintenant que c'est numérique
-      if str(sys.argv[testIdEnquete]).isnumeric() :
+    if ( len(sys.argv) == ArgvIdEnquete +1 ):
+      # on récupère le chiffre passé
+      testIdEnquete =  sys.argv[ArgvIdEnquete]
+      # on vérifie que c'est numérique
+      if testIdEnquete.isnumeric() :
         # tout est ok : on appelle la fonction
-          TraiterDonneesFIM()
-          # et on arrête car cette fonction ne doit faire que ça
-          sys.exit()
+        enquete_id = testIdEnquete
+        TraiterDonneesFIM()
+        # et on arrête car cette fonction ne doit faire que ça
+        sys.exit()
       else:
         Logguer("erreur : l'identifiant d'enquête n'est pas numérique")
         sys.exit()
