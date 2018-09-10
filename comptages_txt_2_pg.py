@@ -57,6 +57,7 @@ stationsArray = []
 station_id          = 0
 station_code        = ""
 station_description = ""
+station_code_insee  = ""
 station_commune     = 0
 station_sens        = ""
 campagne_date_deb   = ""
@@ -92,8 +93,8 @@ def TraiterDonneesFIM():
   # on commence par lire le fichier des postes de comptages en geojson pour en faire un tableau
   #LectureStations()
   # fake for dev
-  stationsArray.append(['35352', '35352_10', '', -1.605361, 48.04621])
-  stationsArray.append(['35352', '35352_12', '', -1.618214, 48.04479])
+  stationsArray.append(['35352', '35352_0010', '', -1.605361, 48.04621])
+  stationsArray.append(['35352', '35352_0012', 'Vers Noyal-Châtillon', -1.618214, 48.04479])
 
   # on fait ensuite la liste des fichiers à traiter
   ListeDesFichiersFIM()
@@ -101,6 +102,9 @@ def TraiterDonneesFIM():
   # et on boucle dessus
   for fichier in FichiersFIM :
     lectureMetadonneesFIM(fichier)
+
+    insertStationInDB()
+
     lectureDonneesFIM(fichier)
 
 
@@ -237,9 +241,9 @@ def lectureMetadonneesFIM(fichier):
   campagne_heure_deb_jolie = metadata[8].strip() + ':' + metadata[9].strip() + ':00'
 
   Logguer( "" )
-  Logguer( " Infos sur la station" )
+  Logguer( "Infos sur la station" )
   Logguer( "   " + station_commune + ' | ' + station_code + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie )
-  Logguer( "" )
+  #Logguer( "" )
 
 
 
@@ -450,7 +454,7 @@ def calculTimeStamp(jour, heure):
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-def insertEnqueteInDB ():
+def insertEnqueteInDB():
 
   # on va lire le fichier csv /fichiers_a_importer/_enquete_a_creer.csv
   # pour insérer ces infos en base
@@ -515,6 +519,75 @@ def insertEnqueteInDB ():
   f.close()
 
 
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+def insertStationInDB():
+
+  # on a un code de station récupéré dans le fichier FIM
+  # on a un tableau des stations récupéré depuis la couche GeoJSON
+  # donc on commence par vérifier si ça matche pour avoir toutes les infos sur la station en cours de traitement
+
+  # mais avant : on commence bêtement pr vérifier si la station est déjà en base ou pas
+  SQL_verif_station = "SELECT count(*) FROM "+DB_schema+".comptage_station WHERE station_id = '" + station_code + "' AND sens = " + station_sens +" ;"
+
+  try:
+    # connexion à la base, si plante, on sort
+    conn = psycopg2.connect(strConnDB)
+    cursor = conn.cursor()
+  except:
+    Logguer( "connexion à la base impossible")
+
+  try:
+    # on lance la requête
+    cursor.execute(SQL_verif_station)
+    result = cursor.fetchone()
+    NbStationIdentique = result[0]
+
+    if (NbStationIdentique == 0):
+      # pas de station déjà en base -> on la crée
+      Logguer("Cette station n'existe pas déjà dans la base de données.")
+
+      # on va donc interroger le tableau pour compléter les infos dont on dipose déjà
+      for station in stationsArray:
+        if "35352_0012" in station[1]:
+          # ça matche
+          station_code_insee = station[0]
+          station_description = station[2]
+          station_long = station[3]
+          station_lat = station[4]
+
+      # on peut maintenant créer la requête d'insertion
+      SQL_insert_station = "INSERT INTO "+DB_schema+".comptage_station (station_id, comm_insee, type, sens, description, long, lat, x, y, shape) "
+      SQL_insert_station += "VALUES ('"+ station_code +"', '"+ station_code_insee + "', 1, "+ station_sens +", '"+ station_description +"', "
+      # long / lat
+      SQL_insert_station += str(station_long) +", "+ str(station_lat) +", "
+      # x / y
+      SQL_insert_station += "ROUND(CAST(ST_X(ST_Transform(ST_SetSRID(ST_MakePoint("+ str(station_long) +", "+ str(station_lat) +"), 4326), 3948)) AS numeric), 2), "
+      SQL_insert_station += "ROUND(CAST(ST_Y(ST_Transform(ST_SetSRID(ST_MakePoint("+ str(station_long) +", "+ str(station_lat) +"), 4326), 3948)) AS numeric), 2), "
+      # shape
+      SQL_insert_station += "ST_Transform(ST_SetSRID(ST_MakePoint("+ str(station_long) +", "+ str(station_lat) +"), 4326), 3948) );"
+      #Logguer(SQL_insert_station)
+
+      # on insère
+      cursor.execute(SQL_insert_station)
+      conn.commit()
+
+      Logguer( "Station ajoutée à la base.")
+
+    else:
+      # la station existe déjà
+      Logguer("Cette station existe déjà dans la base de données.")
+
+  except Exception as err:
+    Logguer( "  impossible d'exécuter la requête " + SQL_verif_station)
+    #Logguer( "  PostgreSQL error code : " + err.pgcode )
+
+  # si on est là c'est que tout s'est bien passé
+  try:
+    cursor.close()
+    conn.close()
+  except:
+    Logguer("")
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
