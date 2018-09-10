@@ -30,6 +30,7 @@ script_dir = os.path.dirname(__file__)
 # ATTENTION : fichier encodé en UCS-2 little endian // utf_16_le
 # passer le fichier en UTF-8 pour pouvoir le lire
 rep_import = script_dir + '\\fichiers_a_importer\\'
+fim_file_encoding = 'utf-16'
 
 # lecture du fichier de configuration
 config = configparser.ConfigParser()
@@ -215,7 +216,14 @@ def lectureMetadonneesFIM(fichier):
 
 
   # on lit la première ligne pour récupéer les métadonnées
-  L_metadata = linecache.getline(rep_import + fichier,1)
+  # linecache ne sait pas lire utf-16
+  # L_metadata1 = linecache.getline(rep_import + fichier,1)
+  # donc on lit tout le fichier
+  with open(rep_import + fichier, encoding=fim_file_encoding) as f:
+    lines = f.readlines()
+
+  L_metadata = lines[0][1:] # il y a un espace intempestif devant par rapport à linecache
+
   # on splitte
   metadata = L_metadata.split('.')
 
@@ -241,7 +249,7 @@ def lectureDonneesFIM(fichier):
 
   Logguer( u"Les données de comptage" )
 
-  f = open(rep_import + fichier,'r',encoding='utf-8')
+  f = open(rep_import + fichier,'r',encoding=fim_file_encoding)
 
   f_content = f.readlines()
 
@@ -357,7 +365,21 @@ def lectureLignePL(fichier, num_ligneTV):
   totalPL = 0
 
   # on va à la ligne TV + le décalage dans le fichier
-  ligne = linecache.getline(rep_import + fichier, num_ligneTV + 171)
+  # ligne = linecache.getline(rep_import + fichier, num_ligneTV + 170)
+  # linecache ne sait pas lire utf-16
+
+  # donc on lit tout le fichier
+  with open(rep_import + fichier, encoding='utf-16') as f:
+    lines = f.readlines()
+
+  num_ligne_a_lire =  num_ligneTV + 170
+  #print(">>> lignePL à lire = " + str(num_ligne_a_lire) )
+
+  # pb : le fichier ne fait que 340 lignes
+  if (num_ligne_a_lire < 341):
+    ligne = lines[num_ligne_a_lire]
+  else:
+    print(">>>>>> " + str(num_ligne_a_lire) + " || " + ligne)
 
   # on splite sur le .
   hits = ligne[:-1].split('.')
