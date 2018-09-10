@@ -257,7 +257,7 @@ def lectureMetadonneesFIM(fichier):
 def lectureDonneesFIM(fichier):
 
   Logguer( "" )
-  Logguer( u"   Les données de comptage" )
+  #Logguer( u"   Lecture du fichier FIM" )
 
   f = open(rep_import + fichier,'r',encoding=fim_file_encoding)
 
@@ -275,6 +275,7 @@ def lectureDonneesFIM(fichier):
   # heure du jour
   h_courante = 0
 
+  tempArray = []
 
   # on boucle sur les lignes
   for line in f_content:
@@ -316,26 +317,26 @@ def lectureDonneesFIM(fichier):
       total_VL = total_TV - total_PL
 
       # sortie console
-      Logguer( "      [" + str(i) + ' ' + str(i_data) + '] | jour ' + str(j_courant).zfill(2) + ' heure ' + str(h_courante).zfill(2) + ' | ' + date_tmst + ' | ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )' )
+      #Logguer( "      [" + str(i) + ' ' + str(i_data) + '] | jour ' + str(j_courant).zfill(2) + ' heure ' + str(h_courante).zfill(2) + ' | ' + date_tmst + ' | ' + intervalle + '  TV = '  + str(total_TV) + '  ( ' + str(total_VL) + ' VL + ' + str(total_PL) + ' PL )' )
 
-      # on remplit le tableau
-      #comptageArray.append()
+      # on remplit le tableau dans l'ordre de la table en base
+      # enquete_id, station_uid, date_tmst, date_str, heure_deb, heure_fin, heure_intervalle, nb_total, nb_vl, nb_pl
+      tempArray = [enquete_id, station_id, date_tmst, date_tmst, h_courante, h_courante + 1, intervalle, total_TV, total_VL, total_PL]
+      comptageArray.append(tempArray)
 
       # on peut incrémenter le compteur des valeurs de trafic
       i_data = i_data + 1
 
-
-
       # on arrête à une ligne précise
       if i > 168:
         break
-
 
     i = i + 1
 
   # fermeture du fichier
   f.close()
 
+  Logguer("   " + str(i_data) + " données de comptage lues dans le fichier FIM" )
 
 
 def lectureLigneTV(ligne):
