@@ -220,7 +220,7 @@ def lectureMetadonneesFIM(fichier):
   # on déclare ces variables comme globales
   global station_id
   global station_sens
-  global station_commune
+  global station_code_insee
   global campagne_date_deb
   global campagne_heure_deb
 
@@ -238,8 +238,8 @@ def lectureMetadonneesFIM(fichier):
 
   # on met en mémoire
   # code de la station de comptage
-  station_commune = "35" + metadata[1].strip()
-  station_id = station_commune + "_" + metadata[2]
+  station_code_insee = "35" + metadata[1].strip()
+  station_id = station_code_insee + "_" + metadata[2]
   station_sens = metadata[4].strip()
   campagne_date_deb = '20' + metadata[5].strip() +'-'+ metadata[6].strip() +'-'+ metadata[7].strip()
   campagne_heure_deb = metadata[8].strip()   # '  09' -> '09'
@@ -247,7 +247,7 @@ def lectureMetadonneesFIM(fichier):
 
   Logguer( "" )
   Logguer( "Infos sur la station" )
-  Logguer( "   " + station_commune + ' | ' + station_id + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie )
+  Logguer( "   " + station_code_insee + ' | ' + station_id + ' | ' + station_sens + ' | ' + campagne_date_deb + ' ' + campagne_heure_deb_jolie )
   #Logguer( "" )
 
 
@@ -538,6 +538,7 @@ def insertEnqueteInDB():
 def insertStationInDB():
 
   global station_uid
+  station_match = False
 
   # on a un code de station récupéré dans le fichier FIM
   # on a un tableau des stations récupéré depuis la couche GeoJSON
@@ -568,34 +569,40 @@ def insertStationInDB():
       for station in stationsArray:
         if station_id in station[1]:
           # ça matche
-          station_code_insee = station[0]
-          station_description = station[2]
+          #station_code_insee = station[0]
+          station_description = station[2].strip().replace("'","''")
           station_long = station[3]
           station_lat = station[4]
+          station_match = True
           break
 
-      # on peut maintenant créer la requête d'insertion
-      SQL_insert_station = "INSERT INTO "+DB_schema+".comptage_station (station_id, comm_insee, type, sens, description, long, lat, x, y, shape) "
-      SQL_insert_station += "VALUES ('"+ station_id +"', '"+ station_code_insee + "', 1, "+ station_sens +", '"+ station_description +"', "
-      # long / lat en 4326
-      SQL_insert_station += str(station_long) +", "+ str(station_lat) +", "
-      # x / y  en CC48
-      SQL_insert_station += "ROUND(CAST(ST_X(ST_Transform(ST_SetSRID(ST_MakePoint("+ str(station_long) +", "+ str(station_lat) +"), 4326), 3948)) AS numeric), 2), "
-      SQL_insert_station += "ROUND(CAST(ST_Y(ST_Transform(ST_SetSRID(ST_MakePoint("+ str(station_long) +", "+ str(station_lat) +"), 4326), 3948)) AS numeric), 2), "
-      # shape
-      SQL_insert_station += "ST_Transform(ST_SetSRID(ST_MakePoint("+ str(station_long) +", "+ str(station_lat) +"), 4326), 3948) );"
-      #Logguer(SQL_insert_station)
+      if (station_match == True):
+        # on peut maintenant créer la requête d'insertion
+        SQL_insert_station = "INSERT INTO "+DB_schema+".comptage_station (station_id, comm_insee, type, sens, description, long, lat, x, y, shape) "
+        SQL_insert_station += "VALUES ('"+ station_id +"', '"+ station_code_insee + "', 1, "+ station_sens +", '"+ station_description +"', "
+        # long / lat en 4326
+        SQL_insert_station += str(station_long) +", "+ str(station_lat) +", "
+        # x / y  en CC48
+        SQL_insert_station += "ROUND(CAST(ST_X(ST_Transform(ST_SetSRID(ST_MakePoint("+ str(station_long) +", "+ str(station_lat) +"), 4326), 3948)) AS numeric), 2), "
+        SQL_insert_station += "ROUND(CAST(ST_Y(ST_Transform(ST_SetSRID(ST_MakePoint("+ str(station_long) +", "+ str(station_lat) +"), 4326), 3948)) AS numeric), 2), "
+        # shape
+        SQL_insert_station += "ST_Transform(ST_SetSRID(ST_MakePoint("+ str(station_long) +", "+ str(station_lat) +"), 4326), 3948) );"
+        #Logguer(SQL_insert_station)
 
-      # on insère
-      cursor.execute(SQL_insert_station)
-      conn.commit()
+        # on insère
+        cursor.execute(SQL_insert_station)
+        conn.commit()
 
-      # il faut maintenant récupérer son identifiant unique
-      SQL_last_uid = "SELECT last_value FROM "+DB_schema+".comptage_station_station_uid_seq"
-      cursor.execute(SQL_last_uid)
-      result = cursor.fetchone()
-      station_uid = result[0]
-      Logguer( "   Station ajoutée à la base de données avec l'identifiant unique : "+  str(station_uid) )
+        # il faut maintenant récupérer son identifiant unique
+        SQL_last_uid = "SELECT last_value FROM "+DB_schema+".comptage_station_station_uid_seq"
+        cursor.execute(SQL_last_uid)
+        result = cursor.fetchone()
+        station_uid = result[0]
+        Logguer( "   Station ajoutée à la base de données avec l'identifiant unique : "+  str(station_uid) )
+      else:
+        # pas de match
+        Logguer("   Station introuvable dans la couche umap >> veuillez la créer SVP")
+        sys.exit()
 
     else:
       # la station existe déjà et il faut récupérer son identifiant unique

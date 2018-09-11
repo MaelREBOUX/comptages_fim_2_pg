@@ -64,7 +64,7 @@ ALTER TABLE mobilite_transp.comptage_station OWNER TO mobilite_transp;
 
 
 
--- DROP TABLE mobilite_transp.comptage_automatique ;
+-- DROP TABLE mobilite_transp.comptage_automatique CASCADE;
 CREATE TABLE mobilite_transp.comptage_automatique
 (
   enquete_uid integer, -- NOT NULL,
