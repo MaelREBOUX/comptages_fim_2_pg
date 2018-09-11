@@ -105,6 +105,7 @@ def TraiterDonneesFIM():
 
   # et on boucle dessus
   for fichier in FichiersFIM :
+    # on enchaîne les différentes étapes
     lectureMetadonneesFIM(fichier)
     insertStationInDB()
     lectureDonneesFIM(fichier)
@@ -306,6 +307,9 @@ def lectureDonneesFIM(fichier):
       # le timestamp  '2016-10-11 09:00:00'
       date_tmst = calculTimeStamp(j_courant, h_courante)
 
+      # la date en format humain fr '11/10/2016'
+      date_str = date_tmst[8:10] + "/" + date_tmst[5:7] + "/" + date_tmst[0:4]
+
       # on calcule l'intervalle de mesure
       intervalle = calculIntervalle(h_courante)
 
@@ -323,7 +327,7 @@ def lectureDonneesFIM(fichier):
 
       # on remplit le tableau dans l'ordre de la table en base
       # enquete_id, station_uid, date_tmst, date_str, heure_deb, heure_fin, heure_intervalle, nb_total, nb_vl, nb_pl
-      tempArray = [enquete_id, station_uid, date_tmst, date_tmst, h_courante, h_courante + 1, intervalle, total_TV, total_VL, total_PL]
+      tempArray = [enquete_id, station_uid, date_tmst, date_str, h_courante, h_courante + 1, intervalle, total_TV, total_VL, total_PL]
       comptageArray.append(tempArray)
 
       # on peut incrémenter le compteur des valeurs de trafic
@@ -572,9 +576,9 @@ def insertStationInDB():
       # on peut maintenant créer la requête d'insertion
       SQL_insert_station = "INSERT INTO "+DB_schema+".comptage_station (station_id, comm_insee, type, sens, description, long, lat, x, y, shape) "
       SQL_insert_station += "VALUES ('"+ station_id +"', '"+ station_code_insee + "', 1, "+ station_sens +", '"+ station_description +"', "
-      # long / lat
+      # long / lat en 4326
       SQL_insert_station += str(station_long) +", "+ str(station_lat) +", "
-      # x / y
+      # x / y  en CC48
       SQL_insert_station += "ROUND(CAST(ST_X(ST_Transform(ST_SetSRID(ST_MakePoint("+ str(station_long) +", "+ str(station_lat) +"), 4326), 3948)) AS numeric), 2), "
       SQL_insert_station += "ROUND(CAST(ST_Y(ST_Transform(ST_SetSRID(ST_MakePoint("+ str(station_long) +", "+ str(station_lat) +"), 4326), 3948)) AS numeric), 2), "
       # shape
@@ -620,11 +624,47 @@ def insertStationInDB():
 
 def insertDonneesComptageInDB():
 
-  i = 0
-  for record in comptageArray :
-    #print( comptageArray[i])
 
-    i = i + 1
+  try:
+    # connexion à la base, si plante, on sort
+    conn = psycopg2.connect(strConnDB)
+    cursor = conn.cursor()
+
+
+    # on boucle sur les enregistrements du tableau lors de la lecture du fichier FIM
+    i = 0
+    for item in comptageArray :
+      #Logguer("      " + str(comptageArray[i]))
+
+      # la clé primaire des données de comptages est basée sur enquete_uid, station_uid, date_tmst, heure_deb
+      # si la base de données crie : on sortira l'erreur car logiquement pas de risque de doublon
+
+      data = comptageArray[i]
+
+      SQL_insert_comptage = "INSERT INTO "+DB_schema+".comptage_automatique VALUES "
+      SQL_insert_comptage += "("+ str(data[0]) +","+ str(data[1]) +",to_timestamp('"+ str(data[2]) +"','YYYY-MM-DD HH24:MI:SS')::timestamp without time zone,'"+ str(data[3]) +"',"+ str(data[4]) +","+ str(data[5]) +",'"+ str(data[6]) +"',"+ str(data[7]) +","+ str(data[8]) +","+ str(data[9]) + ",NULL,NULL,NULL,NULL) ;"
+      #Logguer(SQL_insert_comptage)
+
+      try:
+        # on execute la requête
+        cursor.execute(SQL_insert_comptage)
+        conn.commit()
+
+      except Exception as err:
+        Logguer( "  impossible d'insérer une donnée de comptage !")
+        Logguer( "  PostgreSQL error code : " + err.pgcode )
+        sys.exit()
+
+      i = i + 1
+
+    cursor.close()
+    conn.close()
+
+    Logguer( "   " + str(i) + " données insérées en base." )
+
+  except:
+    Logguer( "connexion à la base impossible")
+    sys.exit()
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
