@@ -92,11 +92,9 @@ def TraiterDonneesFIM():
   Logguer("")
 
   # on commence par lire le fichier des postes de comptages en geojson pour en faire un tableau
-  #LectureStations()
-
+  LectureStations()
   # fake for dev
-  #stationsArray.append(['35352', '35352_0010', '', -1.605361, 48.04621])
-  stationsArray.append(['35352', '35352_0012', 'Vers Noyal-Châtillon', -1.618214, 48.04479])
+  #stationsArray.append(['35352', '35352_0012', 'Vers Noyal-Châtillon', -1.618214, 48.04479])
 
   # on fait ensuite la liste des fichiers à traiter
   ListeDesFichiersFIM()
@@ -111,6 +109,8 @@ def TraiterDonneesFIM():
     lectureDonneesFIM(fichier)
     insertDonneesComptageInDB()
 
+  Logguer("")
+  Logguer("F I N")
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -154,7 +154,6 @@ def LectureStations():
 
   except Exception as err:
     print( str(err) )
-
 
   # pas de pb : on continue
   #print(geojson_content)
@@ -219,13 +218,11 @@ def ListeDesFichiersFIM():
 def lectureMetadonneesFIM(fichier):
 
   # on déclare ces variables comme globales
-  global station_commune
-  global station_uid
   global station_id
   global station_sens
+  global station_commune
   global campagne_date_deb
   global campagne_heure_deb
-
 
   # on lit la première ligne pour récupéer les métadonnées
   # linecache ne sait pas lire utf-16
@@ -279,13 +276,14 @@ def lectureDonneesFIM(fichier):
   h_courante = 0
 
   tempArray = []
+  # on purge aussi la liste globale
+  comptageArray.clear()
 
   # on boucle sur les lignes
   for line in f_content:
 
     if not i in metadata:
       # print line[:-1]
-
 
       # il faut gérer le changement de jour calendaire
       # on va utiliser le modulo pour ça
@@ -539,6 +537,8 @@ def insertEnqueteInDB():
 
 def insertStationInDB():
 
+  global station_uid
+
   # on a un code de station récupéré dans le fichier FIM
   # on a un tableau des stations récupéré depuis la couche GeoJSON
   # donc on commence par vérifier si ça matche pour avoir toutes les infos sur la station en cours de traitement
@@ -566,12 +566,13 @@ def insertStationInDB():
 
       # on va donc interroger le tableau pour compléter les infos dont on dipose déjà
       for station in stationsArray:
-        if "35352_0012" in station[1]:
+        if station_id in station[1]:
           # ça matche
           station_code_insee = station[0]
           station_description = station[2]
           station_long = station[3]
           station_lat = station[4]
+          break
 
       # on peut maintenant créer la requête d'insertion
       SQL_insert_station = "INSERT INTO "+DB_schema+".comptage_station (station_id, comm_insee, type, sens, description, long, lat, x, y, shape) "
@@ -594,7 +595,6 @@ def insertStationInDB():
       cursor.execute(SQL_last_uid)
       result = cursor.fetchone()
       station_uid = result[0]
-
       Logguer( "   Station ajoutée à la base de données avec l'identifiant unique : "+  str(station_uid) )
 
     else:
@@ -624,12 +624,10 @@ def insertStationInDB():
 
 def insertDonneesComptageInDB():
 
-
   try:
     # connexion à la base, si plante, on sort
     conn = psycopg2.connect(strConnDB)
     cursor = conn.cursor()
-
 
     # on boucle sur les enregistrements du tableau lors de la lecture du fichier FIM
     i = 0
@@ -651,9 +649,15 @@ def insertDonneesComptageInDB():
         conn.commit()
 
       except Exception as err:
-        Logguer( "  impossible d'insérer une donnée de comptage !")
-        Logguer( "  PostgreSQL error code : " + err.pgcode )
-        sys.exit()
+        Logguer( "   impossible d'insérer une donnée de comptage !")
+        if (err.pgcode == '23505'):
+          Logguer( "   il existe déjà des données de comptage pour cette enquête / station / date ! (erreur 23505 : violation sur clé unique)" )
+          Logguer( "   " +  str(data[0]) +" | "+ str(data[1]) +" | "+ str(data[3]) )
+          Logguer( "   >>> vérifiez les données que vous voulez insérer SVP")
+        else:
+          Logguer( "   PostgreSQL error code : " + err.pgcode )
+        #sys.exit()
+        return
 
       i = i + 1
 
@@ -663,8 +667,10 @@ def insertDonneesComptageInDB():
     Logguer( "   " + str(i) + " données insérées en base." )
 
   except:
-    Logguer( "connexion à la base impossible")
-    sys.exit()
+    #Logguer( "connexion à la base impossible")
+    Logguer( "   sortie insertion des données" )
+    #sys.exit()
+    return
 
 
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
