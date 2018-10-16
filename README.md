@@ -11,5 +11,7 @@ Scénario classique :
 
 Il faut compléter le fichier `_enquete_a_creer.csv` pour créer des enquêtes et placer les fichier à importer dans le même répertoire.
 
+Les coordonnées et certaines informations des stations / poste de comptage seront cherchées sur une couche d'une carte uMap.
+
 La strucutre des tables est dans le fichier `comptage_routier.sql `
 
